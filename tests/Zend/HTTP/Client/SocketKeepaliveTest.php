@@ -20,12 +20,24 @@
  * @version    $Id$
  */
 
-
 /**
- * PHPUnit test case
+ * @namespace
  */
+namespace ZendTest\HTTP\Client;
 
 /**
+ * This Testsuite includes all Zend_Http_Client that require a working web
+ * server to perform. It was designed to be extendable, so that several
+ * test suites could be run against several servers, with different client
+ * adapters and configurations.
+ *
+ * Note that $this->baseuri must point to a directory on a web server
+ * containing all the files under the _files directory. You should symlink
+ * or copy these files and set 'baseuri' properly.
+ *
+ * You can also set the proper constand in your test configuration file to
+ * point to the right place.
+ *
  * @category   Zend
  * @package    Zend_Http_Client
  * @subpackage UnitTests
@@ -34,37 +46,15 @@
  * @group      Zend_Http
  * @group      Zend_Http_Client
  */
-class Zend_Http_Client_Skip_SocketTest extends PHPUnit_Framework_TestCase
+class SocketKeepaliveTest extends SocketTest
 {
-    public function setUp()
-    {
-        $this->markTestSkipped("Zend_Http_Client dynamic tests are not enabled in TestConfiguration.php");
-    }
-
-    public function testSocket()
-    {
-        // this is here only so we have at least one test
-    }
-}
-
-/**
- * @category   Zend
- * @package    Zend_Http_Client
- * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Http
- * @group      Zend_Http_Client
- */
-class Zend_Http_Client_Skip_ProxyAdapterTest extends PHPUnit_Framework_TestCase
-{
-    public function setUp()
-    {
-        $this->markTestSkipped("Zend_Http_Client proxy server tests are not enabled in TestConfiguration.php");
-    }
-
-    public function testProxyAdapter()
-    {
-        // this is here only so we have at least one test
-    }
+    /**
+     * Configuration array
+     *
+     * @var array
+     */
+    protected $config = array(
+        'adapter'     => 'Zend\Http\Client\Adapter\Socket',
+        'keepalive'   => true
+    );
 }
