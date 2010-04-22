@@ -13,19 +13,25 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Serializer
- * @subpackage UnitTests
+ * @package    Zend_Rest
+ * @subpackage Client
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
 
 /**
- * @category   Zend
- * @package    Zend_Serializer
- * @subpackage UnitTests
+ * @namespace
+ */
+namespace Zend\REST\Client;
+
+/**
+ * REST client result exception
+ *
+ * @uses       Zend\REST\Client\Exception
+ * @package    Zend_Rest
+ * @subpackage Client
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Serializer_Adapter_Dummy
-{}
+class ResultException extends Exception{}
