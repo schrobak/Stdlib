@@ -20,8 +20,11 @@
  * @version    $Id$
  */
 
+/**
+ * @namespace
+ */
+namespace ZendTest\Db\Table\Rowset;
 
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
 
 /**
  * @category   Zend
@@ -33,8 +36,13 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @group      Zend_Db_Table
  * @group      Zend_Db_Table_Rowset
  */
-class Zend_Db_Table_Rowset_SqlsrvTest extends Zend_Db_Table_Rowset_TestCommon
+class SQLSRVTest extends AbstractTest
 {
+    public function setup()
+    {
+        $this->markTestSkipped('This suite is skipped until Zend\DB can be refactored.');
+    }
+    
     public function getDriver()
     {
         return 'Sqlsrv';

@@ -21,10 +21,15 @@
  */
 
 /**
+ * @namespace
+ */
+namespace ZendTest\Db\TestUtil\Pdo;
+
+/**
  * @see Zend_Db_TestUtil_Db2
  */
 
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
+\PHPUnit_Util_Filter::addFileToFilter(__FILE__);
 
 /**
  * @category   Zend
@@ -33,7 +38,7 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Db_TestUtil_Pdo_Ibm extends Zend_Db_TestUtil_Db2
+class Ibm extends \Zend_Db_TestUtil_Db2
 {
     public function getSchema()
     {
@@ -48,7 +53,7 @@ class Zend_Db_TestUtil_Pdo_Ibm extends Zend_Db_TestUtil_Db2
         $server = $this->getServer();
         if ($server == 'IDS') {
             foreach ($data as &$row) {
-                $row['product_id'] = new Zend_Db_Expr($this->_db->quoteIdentifier('zfproducts_seq', true) . ".NEXTVAL");
+                $row['product_id'] = new \Zend\DB\Expr($this->_db->quoteIdentifier('zfproducts_seq', true) . ".NEXTVAL");
             }
         }
         return $data;
@@ -166,7 +171,7 @@ class Zend_Db_TestUtil_Pdo_Ibm extends Zend_Db_TestUtil_Db2
 
     public function getServer()
     {
-        return substr($this->_db->getConnection()->getAttribute(PDO::ATTR_SERVER_INFO), 0, 3);
+        return substr($this->_db->getConnection()->getAttribute(\PDO::ATTR_SERVER_INFO), 0, 3);
     }
 
     protected function _rawQuery($sql)
@@ -175,7 +180,7 @@ class Zend_Db_TestUtil_Pdo_Ibm extends Zend_Db_TestUtil_Db2
         $retval = $conn->query($sql);
         if (!$retval) {
             $e = $conn->error;
-            throw new Zend_Db_Exception("SQL error for \"$sql\": $e");
+            throw new \Zend\DB\Exception("SQL error for \"$sql\": $e");
         }
     }
 }

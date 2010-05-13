@@ -20,13 +20,10 @@
  * @version    $Id$
  */
 
-
 /**
- * @see Zend_Db_Profiler_TestCommon
+ * @namespace
  */
-
-
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
+namespace ZendTest\DB\Profiler;
 
 
 /**
@@ -38,7 +35,7 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @group      Zend_Db
  * @group      Zend_Db_Profiler
  */
-class Zend_Db_Profiler_Db2Test extends Zend_Db_Profiler_TestCommon
+class Db2Test extends AbstractTest
 {
 
     public function testProfilerPreparedStatementWithBoundParams()
@@ -46,6 +43,11 @@ class Zend_Db_Profiler_Db2Test extends Zend_Db_Profiler_TestCommon
         $this->markTestIncomplete($this->getDriver() . ' is having trouble with binding params');
     }
 
+    public function setup()
+    {
+        $this->markTestSkipped('This suite is skipped until Zend\DB can be refactored.');
+    }
+    
     public function getDriver()
     {
         return 'Db2';

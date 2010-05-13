@@ -20,11 +20,11 @@
  * @version    $Id $
  */
 
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
-
 /**
- * @see Zend_Db_Table_Row_TestMockRow
+ * @namespace
  */
+namespace ZendTest\DB\Table\Row;
+
 
 /**
  * @category   Zend
@@ -36,10 +36,13 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @group      Zend_Db_Table
  * @group      Zend_Db_Table_Row
  */
-class Zend_Db_Table_Row_StaticTest extends PHPUnit_Framework_TestCase
+class StaticTest extends \PHPUnit_Framework_TestCase
 {
 
-
+    public function setup()
+    {
+        $this->markTestSkipped('This suite is skipped until Zend\DB can be refactored.');
+    }
 
     public function testTableRowTransformColumnNotUsedInConstructor()
     {
@@ -48,7 +51,7 @@ class Zend_Db_Table_Row_StaticTest extends PHPUnit_Framework_TestCase
             'column_foo'     => 'value2',
             'column_bar_baz' => 'value3'
         );
-        $row = new Zend_Db_Table_Asset_Row_TestMockRow(array('data' => $data));
+        $row = new \Zend_Db_Table_Asset_Row_TestMockRow(array('data' => $data));
 
         $array = $row->toArray();
         $this->assertEquals($data, $array);
@@ -61,7 +64,7 @@ class Zend_Db_Table_Row_StaticTest extends PHPUnit_Framework_TestCase
             'column_foo'     => 'value2',
             'column_bar_baz' => 'value3'
         );
-        $row = new Zend_Db_Table_Asset_Row_TestMockRow(array('data' => $data));
+        $row = new \Zend_Db_Table_Asset_Row_TestMockRow(array('data' => $data));
 
         $this->assertEquals('value1', $row->column);
         $this->assertEquals('value2', $row->columnFoo);
@@ -75,7 +78,7 @@ class Zend_Db_Table_Row_StaticTest extends PHPUnit_Framework_TestCase
             'column_foo'     => 'value2',
             'column_bar_baz' => 'value3'
         );
-        $row = new Zend_Db_Table_Asset_Row_TestMockRow(array('data' => $data));
+        $row = new \Zend_Db_Table_Asset_Row_TestMockRow(array('data' => $data));
 
         $this->assertEquals('value1', $row->column);
         $this->assertEquals('value2', $row->columnFoo);

@@ -20,14 +20,10 @@
  * @version    $Id$
  */
 
-
 /**
- * @see Zend_Db_Profiler_TestCommon
+ * @namespace
  */
-
-
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
-
+namespace ZendTest\DB\Profiler;
 
 /**
  * @category   Zend
@@ -38,9 +34,14 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @group      Zend_Db
  * @group      Zend_Db_Profiler
  */
-class Zend_Db_Profiler_OracleTest extends Zend_Db_Profiler_TestCommon
+class OracleTest extends AbstractTest
 {
 
+    public function setup()
+    {
+        $this->markTestSkipped('This suite is skipped until Zend\DB can be refactored.');
+    }
+    
     public function testProfilerPreparedStatementWithParams()
     {
         $bug_id = $this->_db->quoteIdentifier('bug_id', true);

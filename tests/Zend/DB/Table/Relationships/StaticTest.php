@@ -20,20 +20,10 @@
  * @version    $Id$
  */
 
-
 /**
- * PHPUnit_Framework_TestCase
+ * @namespace
  */
-
-/**
- * PHPUnit_Util_Filter
- */
-
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
-
-/**
- * @see Zend_Db_Table_Row_TestMockRow
- */
+namespace ZendTest\DB\Table\Relationships;
 
 /**
  * @category   Zend
@@ -45,12 +35,17 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @group      Zend_Db_Table
  * @group      Zend_Db_Table_Relationships
  */
-class Zend_Db_Table_Relationships_StaticTest extends PHPUnit_Framework_TestCase
+class StaticTest extends \PHPUnit_Framework_TestCase
 {
 
+    public function setup()
+    {
+        $this->markTestSkipped('This suite is skipped until Zend\DB can be refactored.');
+    }
+    
     public function testTableRelationshipsFindDependentMagic()
     {
-        $row = new Zend_Db_Table_Asset_Row_TestMockRow();
+        $row = new \Zend_Db_Table_Asset_Row_TestMockRow();
 
         $this->assertNull($row->dependentTable);
         $this->assertNull($row->ruleKey);
@@ -66,7 +61,7 @@ class Zend_Db_Table_Relationships_StaticTest extends PHPUnit_Framework_TestCase
 
     public function testTableRelationshipsFindParentMagic()
     {
-        $row = new Zend_Db_Table_Asset_Row_TestMockRow();
+        $row = new \Zend_Db_Table_Asset_Row_TestMockRow();
 
         $this->assertNull($row->parentTable);
         $this->assertNull($row->ruleKey);
@@ -82,7 +77,7 @@ class Zend_Db_Table_Relationships_StaticTest extends PHPUnit_Framework_TestCase
 
     public function testTableRelationshipsFindManyToManyMagic()
     {
-        $row = new Zend_Db_Table_Asset_Row_TestMockRow();
+        $row = new \Zend_Db_Table_Asset_Row_TestMockRow();
 
         $this->assertNull($row->matchTable);
         $this->assertNull($row->intersectionTable);

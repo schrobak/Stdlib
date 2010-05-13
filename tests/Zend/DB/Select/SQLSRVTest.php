@@ -20,8 +20,10 @@
  * @version    $Id$
  */
 
-
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
+/**
+ * @namespace
+ */
+namespace ZendTest\DB\Select;
 
 /**
  * @category   Zend
@@ -32,8 +34,13 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @group      Zend_Db
  * @group      Zend_Db_Select
  */
-class Zend_Db_Select_SqlsrvTest extends Zend_Db_Select_TestCommon
+class SQLSRVTest extends AbstractTest
 {
+    public function setup()
+    {
+        $this->markTestSkipped('This suite is skipped until Zend\DB can be refactored.');
+    }
+    
     public function testSelectQueryWithBinds()
     {
         $this->markTestSkipped($this->getDriver() . ' does not support binding by name.');

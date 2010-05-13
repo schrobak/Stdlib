@@ -20,8 +20,10 @@
  * @version    $Id $
  */
 
-
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
+/**
+ * @namespace
+ */
+namespace ZendTest\DB\Table\Rowset;
 
 /**
  * @category   Zend
@@ -33,8 +35,12 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @group      Zend_Db_Table
  * @group      Zend_Db_Table_Rowset
  */
-class Zend_Db_Table_Rowset_Db2Test extends Zend_Db_Table_Rowset_TestCommon
+class DB2Test extends AbstractTest
 {
+    public function setup()
+    {
+        $this->markTestSkipped('This suite is skipped until Zend\DB can be refactored.');
+    }
 
     public function getDriver()
     {

@@ -20,8 +20,10 @@
  * @version    $Id $
  */
 
-
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
+/**
+ * @namespace
+ */
+namespace ZendTest\DB\Table\Relationships;
 
 /**
  * @category   Zend
@@ -33,9 +35,14 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @group      Zend_Db_Table
  * @group      Zend_Db_Table_Relationships
  */
-class Zend_Db_Table_Relationships_OracleTest extends Zend_Db_Table_Relationships_TestCommon
+class OracleTest extends AbstractTest
 {
 
+    public function setup()
+    {
+        $this->markTestSkipped('This suite is skipped until Zend\DB can be refactored.');
+    }
+    
     public function getDriver()
     {
         return 'Oracle';

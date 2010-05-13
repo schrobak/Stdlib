@@ -21,10 +21,16 @@
  */
 
 /**
+ * @namespace
+ */
+namespace ZendTest\Db\TestUtil\Pdo;
+use Zend\DB;
+
+/**
  * @see Zend_Db_TestUtil_Pdo_Common
  */
 
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
+\PHPUnit_Util_Filter::addFileToFilter(__FILE__);
 
 /**
  * @category   Zend
@@ -33,7 +39,7 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Db_TestUtil_Pdo_Mssql extends Zend_Db_TestUtil_Pdo_Common
+class Mssql extends \Zend_Db_TestUtil_Pdo_Common
 {
     
     protected $_enabledConstantName = 'TESTS_ZEND_DB_ADAPTER_PDO_MSSQL_ENABLED';
@@ -87,7 +93,7 @@ class Zend_Db_TestUtil_Pdo_Mssql extends Zend_Db_TestUtil_Pdo_Common
     {
         $sql = "exec sp_tables @table_name = " . $this->_db->quoteIdentifier($tableName, true);
         $stmt = $this->_db->query($sql);
-        $tableList = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
+        $tableList = $stmt->fetchAll(DB\DB::FETCH_ASSOC);
 
         if (count($tableList) > 0 && $tableName == $tableList[0]['TABLE_NAME']) {
             return null;
@@ -99,7 +105,7 @@ class Zend_Db_TestUtil_Pdo_Mssql extends Zend_Db_TestUtil_Pdo_Common
     {
         $sql = "exec sp_tables @table_name = " . $this->_db->quoteIdentifier($elementName, true);
         $stmt = $this->_db->query($sql);
-        $elementList = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
+        $elementList = $stmt->fetchAll(DB\DB::FETCH_ASSOC);
 
         if (count($elementList) > 0 && $elementName == $elementList[0]['TABLE_NAME']) {
             return "DROP $typeElement " . $this->_db->quoteIdentifier($elementName);

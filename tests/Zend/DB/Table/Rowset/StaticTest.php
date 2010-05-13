@@ -20,7 +20,12 @@
  * @version    $Id $
  */
 
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
+/**
+ * @namespace
+ */
+namespace ZendTest\Db\Table\Rowset;
+
+\PHPUnit_Util_Filter::addFileToFilter(__FILE__);
 
 /**
  * @category   Zend
@@ -32,7 +37,7 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @group      Zend_Db_Table
  * @group      Zend_Db_Table_Rowset
  */
-class Zend_Db_Table_Rowset_StaticTest extends PHPUnit_Framework_TestCase
+class StaticTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testStatic()

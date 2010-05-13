@@ -20,6 +20,12 @@
  * @version    $Id$
  */
 
+/**
+ * @namespace
+ */
+namespace ZendTest\Db\TestUtil;
+use Zend\DB;
+use Zend\DB\Adapter;
 
 /**
  * @see Zend_Db_Expr
@@ -30,7 +36,7 @@
  */
 
 
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
+\PHPUnit_Util_Filter::addFileToFilter(__FILE__);
 
 
 /**
@@ -40,7 +46,7 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class Zend_Db_TestUtil_Common
+abstract class Common
 {
     protected $_enabledConstantName = null;
     
@@ -131,7 +137,7 @@ abstract class Zend_Db_TestUtil_Common
         $sql .= "\n)" . $this->_getSqlCreateTableType();
         $result = $this->_tryRawQuery($sql);
         if ($result === false) {
-            throw new Zend_Db_Exception("Statement failed:\n$sql\nError: " . $this->getAdapter()->getConnection()->error);
+            throw new DB\Exception("Statement failed:\n$sql\nError: " . $this->getAdapter()->getConnection()->error);
         }
         $this->_tables[$tableName] = true;
     }
@@ -151,7 +157,7 @@ abstract class Zend_Db_TestUtil_Common
         }
         $result = $this->_tryRawQuery($sql);
         if ($result === false) {
-            throw new Zend_Db_Exception("DROP TABLE statement failed:\n$sql\nError: " . $this->getAdapter()->getConnection()->error);
+            throw new DB\Exception("DROP TABLE statement failed:\n$sql\nError: " . $this->getAdapter()->getConnection()->error);
         }
         unset($this->_tables[$tableName]);
     }
@@ -178,7 +184,7 @@ abstract class Zend_Db_TestUtil_Common
         }
         $result = $this->_tryRawQuery($sql);
         if ($result === false) {
-            throw new Zend_Db_Exception("CREATE SEQUENCE statement failed:\n$sql\nError: " . $this->getAdapter()->getConnection()->error);
+            throw new DB\Exception("CREATE SEQUENCE statement failed:\n$sql\nError: " . $this->getAdapter()->getConnection()->error);
         }
         $this->_sequences[$sequenceName] = true;
     }
@@ -198,7 +204,7 @@ abstract class Zend_Db_TestUtil_Common
         }
         $result = $this->_tryRawQuery($sql);
         if ($result === false) {
-            throw new Zend_Db_Exception("DROP SEQUENCE statement failed:\n$sql\nError: " . $this->getAdapter()->getConnection()->error);
+            throw new DB\Exception("DROP SEQUENCE statement failed:\n$sql\nError: " . $this->getAdapter()->getConnection()->error);
         }
         unset($this->_sequences[$sequenceName]);
     }
@@ -240,7 +246,7 @@ abstract class Zend_Db_TestUtil_Common
     public function getTableName($tableId)
     {
         if (!isset($this->_tableName)) {
-            throw new Exception("Invalid table id '$tableId'");
+            throw new \Exception("Invalid table id '$tableId'");
         }
         if (array_key_exists($tableId, $this->_tableName)) {
             return $this->_tableName[$tableId];
@@ -434,7 +440,7 @@ abstract class Zend_Db_TestUtil_Common
             $vals = array();
             foreach ($row as $col => $val) {
                 $cols[] = $this->getAdapter()->quoteIdentifier($col, true);
-                if ($val instanceof Zend_Db_Expr) {
+                if ($val instanceof DB\Expr) {
                     $vals[] = $val->__toString();
                 } else {
                     $vals[] = $this->getAdapter()->quote($val);
@@ -444,7 +450,7 @@ abstract class Zend_Db_TestUtil_Common
             $sql .= ' VALUES (' . implode(', ', $vals) . ')';
             $result = $this->_tryRawQuery($sql);
             if ($result === false) {
-                throw new Zend_Db_Exception("Statement failed:\n$sql\nError: " . $this->getAdapter()->getConnection()->error);
+                throw new DB\Exception("Statement failed:\n$sql\nError: " . $this->getAdapter()->getConnection()->error);
             }
         }
     }
@@ -466,7 +472,7 @@ abstract class Zend_Db_TestUtil_Common
              . $this->getAdapter()->quoteIdentifier('zfbugs', true);
         $result = $this->_tryRawQuery($sql);
         if ($result === false) {
-            throw new Zend_Db_Exception("Statement failed:\n$sql\nError: " . $this->getAdapter()->getConnection()->error);
+            throw new DB\Exception("Statement failed:\n$sql\nError: " . $this->getAdapter()->getConnection()->error);
         }
     }
 
@@ -478,11 +484,11 @@ abstract class Zend_Db_TestUtil_Common
         }
         $result = $this->_tryRawQuery($sql);
         if ($result === false) {
-            throw new Zend_Db_Exception("Statement failed:\n$sql\nError: " . $this->getAdapter()->getConnection()->error);
+            throw new DB\Exception("Statement failed:\n$sql\nError: " . $this->getAdapter()->getConnection()->error);
         }
     }
 
-    public function setUp(Zend_Db_Adapter_Abstract $db)
+    public function setUp(Adapter\AbstractAdapter $db)
     {
         $this->setAdapter($db);
 
@@ -507,7 +513,7 @@ abstract class Zend_Db_TestUtil_Common
         $this->createView();
     }
 
-    public function setAdapter(Zend_Db_Adapter_Abstract $db)
+    public function setAdapter(Adapter\AbstractAdapter $db)
     {
         $this->_db = $db;
     }
@@ -515,7 +521,7 @@ abstract class Zend_Db_TestUtil_Common
     protected function getAdapter()
     {
         if($this->_db == null) {
-            throw new Zend_Db_Exception("No adapter was set in TestUtils.");
+            throw new DB\Exception("No adapter was set in TestUtils.");
         }
         return $this->_db;
     }
@@ -531,7 +537,7 @@ abstract class Zend_Db_TestUtil_Common
     protected function _tryRawQuery($sql)
     {
         if($this->_db == null) {
-            throw new Zend_Db_Exception("No database adapter set.");
+            throw new DB\Exception("No database adapter set.");
         }
         $this->_rawQuery($sql);
     }

@@ -20,13 +20,10 @@
  * @version    $Id$
  */
 
-
 /**
- * @see Zend_Db_Table_Select_TestCommon
+ * @namespace
  */
-
-
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
+namespace ZendTest\DB\Table\Select;
 
 
 /**
@@ -39,8 +36,13 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @group      Zend_Db_Table
  * @group      Zend_Db_Table_Select
  */
-class Zend_Db_Table_Select_StaticTest extends Zend_Db_Select_TestCommon
+class StaticTest extends AbstractTest
 {
+    public function setup()
+    {
+        $this->markTestSkipped('This suite is skipped until Zend\DB can be refactored.');
+    }
+    
     /**
      * Test basic use of the Zend_Db_Select class.
      *
@@ -64,7 +66,7 @@ class Zend_Db_Table_Select_StaticTest extends Zend_Db_Select_TestCommon
         $sql = preg_replace('/\\s+/', ' ', $select->__toString());
         $this->assertEquals('SELECT "zfproducts".* FROM "zfproducts"', $sql);
         $stmt = $select->query();
-        Zend_Loader::loadClass('Zend_Db_Statement_Static');
+        \Zend\Loader::loadClass('Zend_Db_Statement_Static');
         $this->assertType('Zend_Db_Statement_Static', $stmt);
     }
 
@@ -80,7 +82,7 @@ class Zend_Db_Table_Select_StaticTest extends Zend_Db_Select_TestCommon
         $this->assertEquals('SELECT "zfproducts".* FROM "zfproducts" WHERE (product_id = :product_id)', $sql);
 
         $stmt = $select->query();
-        Zend_Loader::loadClass('Zend_Db_Statement_Static');
+        \Zend\Loader::loadClass('Zend_Db_Statement_Static');
         $this->assertType('Zend_Db_Statement_Static', $stmt);
     }
 
@@ -182,7 +184,7 @@ class Zend_Db_Table_Select_StaticTest extends Zend_Db_Select_TestCommon
     public function testSelectColumnsReset()
     {
         $select = $this->_selectColumnsReset()
-            ->reset(Zend_Db_Select::COLUMNS)
+            ->reset(\Zend\DB\Select\Select::COLUMNS)
             ->columns('product_name');
         $sql = preg_replace('/\\s+/', ' ', $select->__toString());
         $this->assertEquals('SELECT "p"."product_name" FROM "zfproducts" AS "p"', $sql);

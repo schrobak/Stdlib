@@ -20,30 +20,10 @@
  * @version    $Id$
  */
 
-
 /**
- * Test helper
+ * @namespace
  */
-
-/**
- * @see Zend_Loader
- */
-
-/**
- * @see Zend_Db
- */
-
-/**
- * PHPUnit_Framework_TestCase
- */
-
-/**
- * PHPUnit_Util_Filter
- */
-
-
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
-
+namespace ZendTest\DB;
 
 /**
  * @category   Zend
@@ -53,10 +33,10 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Db
  */
-abstract class Zend_Db_TestSetup extends PHPUnit_Framework_TestCase
+abstract class TestSetup extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Zend_Db_TestUtil
+     * @var ZendTest\DB\TestUtil
      */
     protected $_util = null;
 
@@ -90,8 +70,7 @@ abstract class Zend_Db_TestSetup extends PHPUnit_Framework_TestCase
     protected function _setUpTestUtil()
     {
         $driver = $this->getDriver();
-        $utilClass = "Zend_Db_TestUtil_{$driver}";
-        Zend_Loader::loadClass($utilClass);
+        $utilClass = 'ZendTest\DB\TestUtil\\' . $driver;
         $this->_util = new $utilClass();
     }
 
@@ -100,12 +79,12 @@ abstract class Zend_Db_TestSetup extends PHPUnit_Framework_TestCase
      */
     protected function _setUpAdapter()
     {
-        $this->_db = Zend_Db::factory($this->getDriver(), $this->_util->getParams());
+        $this->_db = \Zend\DB\DB::factory($this->getDriver(), $this->_util->getParams());
         try {
             $conn = $this->_db->getConnection();
-        } catch (Zend_Exception $e) {
+        } catch (\Zend\Exception $e) {
             $this->_db = null;
-            $this->assertType('Zend_Db_Adapter_Exception', $e,
+            $this->assertType('Zend\DB\Adapter\Exception', $e,
                 'Expecting Zend_Db_Adapter_Exception, got ' . get_class($e));
             $this->markTestSkipped($e->getMessage());
         }

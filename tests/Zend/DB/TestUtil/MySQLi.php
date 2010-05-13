@@ -20,14 +20,10 @@
  * @version    $Id$
  */
 
-
 /**
- * @see Zend_Db_TestUtil_Common
+ * @namespace
  */
-
-
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
-
+namespace ZendTest\Db\TestUtil;
 
 /**
  * @category   Zend
@@ -36,7 +32,7 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Db_TestUtil_Mysqli extends Zend_Db_TestUtil_Common
+class MySQLi extends Common
 {
 
     protected $_enabledConstantName = 'TESTS_ZEND_DB_ADAPTER_MYSQLI_ENABLED';
@@ -85,7 +81,7 @@ class Zend_Db_TestUtil_Mysqli extends Zend_Db_TestUtil_Common
         $retval = $mysqli->query($sql);
         if (!$retval) {
             $e = $mysqli->error;
-            throw new Zend_Db_Exception("SQL error for \"$sql\": $e");
+            throw new \Zend\DB\Exception("SQL error for \"$sql\": $e");
         }
     }
 
@@ -119,7 +115,7 @@ class Zend_Db_TestUtil_Mysqli extends Zend_Db_TestUtil_Common
         );
     }
 
-    public function setUp(Zend_Db_Adapter_Abstract $db)
+    public function setUp(\Zend\DB\Adapter\AbstractAdapter $db)
     {
         parent::setUp($db);
 

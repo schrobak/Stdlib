@@ -20,8 +20,10 @@
  * @version    $Id $
  */
 
-
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
+/**
+ * @namespace
+ */
+namespace ZendTest\DB\Statement;
 
 /**
  * @category   Zend
@@ -32,9 +34,14 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @group      Zend_Db
  * @group      Zend_Db_Statement
  */
-class Zend_Db_Statement_MysqliTest extends Zend_Db_Statement_TestCommon
+class MySQLiTest extends AbstractTest
 {
 
+    public function setup()
+    {
+        $this->markTestSkipped('This suite is skipped until Zend\DB can be refactored.');
+    }
+    
     public function testStatementRowCount()
     {
         $products = $this->_db->quoteIdentifier('zfproducts');
@@ -71,7 +78,7 @@ class Zend_Db_Statement_MysqliTest extends Zend_Db_Statement_TestCommon
             // test with no colon prefix
             $this->assertTrue($stmt->bindParam('name', $productNameValue), 'Expected bindParam(\'name\') to return true');
             $this->fail('Expected to catch Zend_Db_Statement_Exception');
-        } catch (Zend_Exception $e) {
+        } catch (\Zend\Exception $e) {
             $this->assertType('Zend_Db_Statement_Exception', $e,
                 'Expecting object of type Zend_Db_Statement_Exception, got '.get_class($e));
             $this->assertEquals("Invalid bind-variable name ':id'", $e->getMessage());
@@ -94,7 +101,7 @@ class Zend_Db_Statement_MysqliTest extends Zend_Db_Statement_TestCommon
             // test with no colon prefix
             $this->assertTrue($stmt->bindParam('name', $productNameValue), 'Expected bindParam(\'name\') to return true');
             $this->fail('Expected to catch Zend_Db_Statement_Exception');
-        } catch (Zend_Exception $e) {
+        } catch (\Zend\Exception $e) {
             $this->assertType('Zend_Db_Statement_Exception', $e,
                 'Expecting object of type Zend_Db_Statement_Exception, got '.get_class($e));
             $this->assertEquals("Invalid bind-variable name ':id'", $e->getMessage());
@@ -117,7 +124,7 @@ class Zend_Db_Statement_MysqliTest extends Zend_Db_Statement_TestCommon
         try {
             $stmt = $this->_db->query($sql);
             $this->fail('Expected to catch Zend_Db_Statement_Exception');
-        } catch (Zend_Exception $e) {
+        } catch (\Zend\Exception $e) {
             $this->assertType('int', $e->getCode());
         }
     }

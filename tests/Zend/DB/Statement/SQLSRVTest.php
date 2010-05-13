@@ -20,8 +20,10 @@
  * @version    $Id$
  */
 
-
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
+/**
+ * @namespace
+ */
+namespace ZendTest\DB\Statement;
 
 /**
  * @category   Zend
@@ -32,13 +34,18 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @group      Zend_Db
  * @group      Zend_Db_Statement
  */
-class Zend_Db_Statement_SqlsrvTest extends Zend_Db_Statement_TestCommon
+class SQLSRVTest extends AbstractTest
 {
     // http://msdn.microsoft.com/en-us/library/cc296197(SQL.90).aspx
     protected $_getColumnMetaKeys = array(
         'Name' , 'Type', 'Size', 'Precision', 'Scale', 'Nullable'
     );
 
+    public function setup()
+    {
+        $this->markTestSkipped('This suite is skipped until Zend\DB can be refactored.');
+    }
+    
     public function testStatementExecuteWithParams()
     {
         $products = $this->_db->quoteIdentifier('zfproducts');
@@ -96,12 +103,12 @@ class Zend_Db_Statement_SqlsrvTest extends Zend_Db_Statement_TestCommon
         $product_id = $this->_db->quoteIdentifier('product_id');
 
         $query = "INVALID SELECT * FROM INVALID TABLE WHERE $product_id > 1 ORDER BY $product_id ASC";
-        $stmt  = new Zend_Db_Statement_Sqlsrv($this->_db, $query);
+        $stmt  = new \Zend\DB\Statement\SQLSRV\SQLSRV($this->_db, $query);
 
         try {
             $stmt->fetchAll();
             $this->fail("Invalid query should have throw an error");
-        } catch (Zend_Db_Statement_Sqlsrv_Exception $e) {
+        } catch (\Zend\DB\Statement\SQLSRV\Exception $e) {
             // Exception is thrown, nothing to worry about
             $this->assertEquals(-11, $e->getCode());
         }
