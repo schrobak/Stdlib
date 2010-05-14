@@ -20,13 +20,13 @@
  * @version    $Id$
  */
 
-
 /**
- * @see Zend_Db_TestSetup
+ * @namespace
  */
-
-
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
+namespace ZendTest\DB\Profiler;
+use Zend\DB;
+use Zend\Config;
+use Zend\DB\Profiler;
 
 
 /**
@@ -38,15 +38,20 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @group      Zend_Db
  * @group      Zend_Db_Profiler
  */
-class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
+class StaticTest extends \ZendTest\DB\TestSetup
 {
 
+    public function setup()
+    {
+        $this->markTestSkipped('This suite is skipped until Zend\DB can be refactored.');
+    }
+    
     /**
      * @return void
      */
     public function testProfilerFactoryFalse()
     {
-        $db = Zend_Db::factory('Static',
+        $db = DB\DB::factory('Static',
             array(
                 'dbname'   => 'dummy',
                 'profiler' => false
@@ -65,7 +70,7 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
      */
     public function testProfilerFactoryTrue()
     {
-        $db = Zend_Db::factory('Static',
+        $db = DB\DB::factory('Static',
             array(
                 'dbname' => 'dummy',
                 'profiler' => true
@@ -94,7 +99,7 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
             'Zend_Db_Profiler_ProfilerCustom'
             );
         foreach ($profilerStrings as $profilerString) {
-            $db = Zend_Db::factory('Static',
+            $db = DB\DB::factory('Static',
                 array(
                     'dbname'   => 'dummy',
                     'profiler' => $profilerString
@@ -114,8 +119,8 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
      */
     public function testProfilerFactoryInstance()
     {
-        $profiler = new Zend_Db_Profiler_ProfilerCustom();
-        $db = Zend_Db::factory('Static',
+        $profiler = new \Zend_Db_Profiler_ProfilerCustom();
+        $db = DB\DB::factory('Static',
             array(
                 'dbname' => 'dummy',
                 'profiler' => $profiler
@@ -136,7 +141,7 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
      */
     public function testProfilerFactoryArrayEnabled()
     {
-        $db = Zend_Db::factory('Static',
+        $db = DB\DB::factory('Static',
             array(
                 'dbname' => 'dummy',
                 'profiler' => array(
@@ -157,7 +162,7 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
      */
     public function testProfilerFactoryArrayClass()
     {
-        $db = Zend_Db::factory('Static',
+        $db = DB\DB::factory('Static',
             array(
                 'dbname' => 'dummy',
                 'profiler' => array(
@@ -180,8 +185,8 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
      */
     public function testProfilerFactoryArrayInstance()
     {
-        $profiler = new Zend_Db_Profiler_ProfilerCustom();
-        $db = Zend_Db::factory('Static',
+        $profiler = new \Zend_Db_Profiler_ProfilerCustom();
+        $db = DB\DB::factory('Static',
             array(
                 'dbname' => 'dummy',
                 'profiler' => array(
@@ -204,10 +209,10 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
      */
     public function testProfilerFactoryConfig()
     {
-        $config = new Zend_Config(array(
+        $config = new Config\Config(array(
             'class' => 'Zend_Db_Profiler_ProfilerCustom'
         ));
-        $db = Zend_Db::factory('Static',
+        $db = DB\DB::factory('Static',
             array(
                 'dbname' => 'dummy',
                 'profiler' => $config
@@ -230,9 +235,9 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
      */
     public function testProfilerFactoryEnabledUnaffected()
     {
-        $profiler = new Zend_Db_Profiler_ProfilerCustom();
+        $profiler = new \Zend_Db_Profiler_ProfilerCustom();
         $profiler->setEnabled(true);
-        $db = Zend_Db::factory('Static',
+        $db = DB\DB::factory('Static',
             array(
                 'dbname'   => 'dummy',
                 'profiler' => $profiler
@@ -252,16 +257,16 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
      */
     public function testProfilerFactoryInvalidClass()
     {
-        $profilerInvalid = new stdClass();
+        $profilerInvalid = new \stdClass();
         try {
-            $db = Zend_Db::factory('Static',
+            $db = DB\DB::factory('Static',
                 array(
                     'dbname'   => 'dummy',
                     'profiler' => $profilerInvalid
                     )
                 );
             $this->fail('Expected Zend_Db_Profiler_Exception not thrown');
-        } catch (Zend_Db_Profiler_Exception $e) {
+        } catch (Profiler\Exception $e) {
             $this->assertContains('Profiler argument must be an instance of', $e->getMessage());
         }
     }
@@ -273,11 +278,11 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
      */
     public function testProfilerFactoryConfigInstance()
     {
-        $profiler = new Zend_Db_Profiler_ProfilerCustom();
+        $profiler = new \Zend_Db_Profiler_ProfilerCustom();
 
-        $config = new Zend_Config(array('instance' => $profiler));
+        $config = new Config\Config(array('instance' => $profiler));
 
-        $db = Zend_Db::factory('Static',
+        $db = DB\DB::factory('Static',
             array(
                 'dbname'   => 'dummy',
                 'profiler' => $config
@@ -297,8 +302,8 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
      */
     public function testProfilerFactoryInstanceOverridesClass()
     {
-        $profiler = new Zend_Db_Profiler_ProfilerCustom();
-        $db = Zend_Db::factory('Static',
+        $profiler = new \Zend_Db_Profiler_ProfilerCustom();
+        $db = DB\DB::factory('Static',
             array(
                 'dbname' => 'dummy',
                 'profiler' => array(
@@ -364,7 +369,7 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
         $this->assertSame($prof->setFilterQueryType(null), $prof);
         $this->assertNull($prof->getFilterQueryType());
 
-        $queryTypes = Zend_Db_Profiler::DELETE;
+        $queryTypes = Profiler\Profiler::DELETE;
         $this->assertSame($prof->setFilterQueryType($queryTypes), $prof);
         $this->assertEquals($queryTypes, $prof->getFilterQueryType());
     }
@@ -401,77 +406,77 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
             array(
                 'sql'          => '',
                 'typeGiven'    => null,
-                'typeExpected' => Zend_Db_Profiler::QUERY
+                'typeExpected' => Profiler\Profiler::QUERY
                 ),
             array(
                 'sql'          => '',
-                'typeGiven'    => Zend_Db_Profiler::QUERY,
-                'typeExpected' => Zend_Db_Profiler::QUERY
+                'typeGiven'    => Profiler\Profiler::QUERY,
+                'typeExpected' => Profiler\Profiler::QUERY
                 ),
             array(
                 'sql'          => 'something',
                 'typeGiven'    => null,
-                'typeExpected' => Zend_Db_Profiler::QUERY
+                'typeExpected' => Profiler\Profiler::QUERY
                 ),
             array(
                 'sql'          => 'INSERT',
                 'typeGiven'    => null,
-                'typeExpected' => Zend_Db_Profiler::INSERT
+                'typeExpected' => Profiler\Profiler::INSERT
                 ),
             array(
                 'sql'          => 'sqlInsert',
-                'typeGiven'    => Zend_Db_Profiler::INSERT,
-                'typeExpected' => Zend_Db_Profiler::INSERT
+                'typeGiven'    => Profiler\Profiler::INSERT,
+                'typeExpected' => Profiler\Profiler::INSERT
                 ),
             array(
                 'sql'          => 'INSERT',
-                'typeGiven'    => Zend_Db_Profiler::UPDATE,
-                'typeExpected' => Zend_Db_Profiler::UPDATE
+                'typeGiven'    => Profiler\Profiler::UPDATE,
+                'typeExpected' => Profiler\Profiler::UPDATE
                 ),
             array(
                 'sql'          => 'UPDATE',
                 'typeGiven'    => null,
-                'typeExpected' => Zend_Db_Profiler::UPDATE
+                'typeExpected' => Profiler\Profiler::UPDATE
                 ),
             array(
                 'sql'          => 'sqlUpdate',
-                'typeGiven'    => Zend_Db_Profiler::UPDATE,
-                'typeExpected' => Zend_Db_Profiler::UPDATE
+                'typeGiven'    => Profiler\Profiler::UPDATE,
+                'typeExpected' => Profiler\Profiler::UPDATE
                 ),
             array(
                 'sql'          => 'UPDATE',
-                'typeGiven'    => Zend_Db_Profiler::DELETE,
-                'typeExpected' => Zend_Db_Profiler::DELETE
+                'typeGiven'    => Profiler\Profiler::DELETE,
+                'typeExpected' => Profiler\Profiler::DELETE
                 ),
             array(
                 'sql'          => 'DELETE',
                 'typeGiven'    => null,
-                'typeExpected' => Zend_Db_Profiler::DELETE
+                'typeExpected' => Profiler\Profiler::DELETE
                 ),
             array(
                 'sql'          => 'sqlDelete',
-                'typeGiven'    => Zend_Db_Profiler::DELETE,
-                'typeExpected' => Zend_Db_Profiler::DELETE
+                'typeGiven'    => Profiler\Profiler::DELETE,
+                'typeExpected' => Profiler\Profiler::DELETE
                 ),
             array(
                 'sql'          => 'DELETE',
-                'typeGiven'    => Zend_Db_Profiler::SELECT,
-                'typeExpected' => Zend_Db_Profiler::SELECT
+                'typeGiven'    => Profiler\Profiler::SELECT,
+                'typeExpected' => Profiler\Profiler::SELECT
                 ),
             array(
                 'sql'          => 'SELECT',
                 'typeGiven'    => null,
-                'typeExpected' => Zend_Db_Profiler::SELECT
+                'typeExpected' => Profiler\Profiler::SELECT
                 ),
             array(
                 'sql'          => 'sqlSelect',
-                'typeGiven'    => Zend_Db_Profiler::SELECT,
-                'typeExpected' => Zend_Db_Profiler::SELECT
+                'typeGiven'    => Profiler\Profiler::SELECT,
+                'typeExpected' => Profiler\Profiler::SELECT
                 ),
             array(
                 'sql'          => 'SELECT',
-                'typeGiven'    => Zend_Db_Profiler::INSERT,
-                'typeExpected' => Zend_Db_Profiler::INSERT
+                'typeGiven'    => Profiler\Profiler::INSERT,
+                'typeExpected' => Profiler\Profiler::INSERT
                 )
             );
 
@@ -510,7 +515,7 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
         try {
             $prof->queryEnd('invalid');
             $this->fail('Expected Zend_Db_Profiler_Exception not thrown');
-        } catch (Zend_Db_Profiler_Exception $e) {
+        } catch (Profiler\Exception $e) {
             $this->assertContains('no query with handle', $e->getMessage());
         }
     }
@@ -532,7 +537,7 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
         try {
             $prof->queryEnd($queryId);
             $this->fail('Expected Zend_Db_Profiler_Exception not thrown');
-        } catch (Zend_Db_Profiler_Exception $e) {
+        } catch (Profiler\Exception $e) {
             $this->assertContains('has already ended', $e->getMessage());
         }
     }
@@ -578,7 +583,7 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
     {
         $prof = $this->_db->getProfiler()
                 ->setEnabled(true)
-                ->setFilterQueryType(Zend_Db_Profiler::UPDATE);
+                ->setFilterQueryType(Profiler\Profiler::UPDATE);
 
         $this->_db->query('INSERT');
         $this->_db->query('UPDATE');
@@ -600,7 +605,7 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
         try {
             $this->_db->getProfiler()->getQueryProfile('invalid');
             $this->fail('Expected Zend_Db_Profiler_Exception not thrown');
-        } catch (Zend_Db_Profiler_Exception $e) {
+        } catch (Profiler\Exception $e) {
             $this->assertContains('not found', $e->getMessage());
         }
     }
@@ -705,12 +710,12 @@ class Zend_Db_Profiler_StaticTest extends Zend_Db_TestSetup
         $this->_db->query('SELECT');
 
         $this->assertThat(
-            $prof->getTotalElapsedSecs(Zend_Db_Profiler::SELECT),
+            $prof->getTotalElapsedSecs(Profiler\Profiler::SELECT),
             $this->lessThan(1)
             );
 
         $this->assertThat(
-            $prof->getTotalElapsedSecs(Zend_Db_Profiler::UPDATE),
+            $prof->getTotalElapsedSecs(Profiler\Profiler::UPDATE),
             $this->greaterThan(1.9)
             );
     }

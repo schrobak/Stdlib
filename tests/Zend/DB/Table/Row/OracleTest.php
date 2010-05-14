@@ -20,8 +20,10 @@
  * @version    $Id $
  */
 
-
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
+/**
+ * @namespace
+ */
+namespace ZendTest\DB\Table\Row;
 
 /**
  * @category   Zend
@@ -33,9 +35,14 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @group      Zend_Db_Table
  * @group      Zend_Db_Table_Row
  */
-class Zend_Db_Table_Row_OracleTest extends Zend_Db_Table_Row_TestCommon
+class OracleTest extends AbstractTest
 {
 
+    public function setup()
+    {
+        $this->markTestSkipped('This suite is skipped until Zend\DB can be refactored.');
+    }
+    
     public function testTableRowSaveInsert()
     {
         $this->markTestSkipped($this->getDriver() . ' does not support auto-increment keys.');
@@ -47,7 +54,7 @@ class Zend_Db_Table_Row_OracleTest extends Zend_Db_Table_Row_TestCommon
     protected function _testTableRowSetReadOnlyGetTableBugs()
     {
         return $this->_getTable('Zend_Db_Table_Asset_TableBugs',
-                                array(Zend_Db_Table_Abstract::SEQUENCE => 'zfbugs_seq'));
+                                array(\Zend\DB\Table\AbstractTable::SEQUENCE => 'zfbugs_seq'));
     }
 
     public function getDriver()

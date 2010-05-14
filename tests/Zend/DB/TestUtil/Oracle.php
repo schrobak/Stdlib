@@ -21,11 +21,17 @@
  */
 
 /**
+ * @namespace
+ */
+namespace ZendTest\Db\TestUtil;
+use Zend\DB;
+
+/**
  * @see Zend_Db_TestUtil_Pdo_Oci
  * @see Zend_Db_TestUtil_Common
  */
 
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
+\PHPUnit_Util_Filter::addFileToFilter(__FILE__);
 
 /**
  * @category   Zend
@@ -34,7 +40,7 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Db_TestUtil_Oracle extends Zend_Db_TestUtil_Pdo_Oci
+class Oracle extends \Zend_Db_TestUtil_Pdo_Oci
 {
 
     protected function _rawQuery($sql)
@@ -43,12 +49,12 @@ class Zend_Db_TestUtil_Oracle extends Zend_Db_TestUtil_Pdo_Oci
         $stmt = oci_parse($conn, $sql);
         if (!$stmt) {
             $e = oci_error($conn);
-            throw new Zend_Db_Exception("SQL parse error for \"$sql\": ".$e['message']);
+            throw new DB\Exception("SQL parse error for \"$sql\": ".$e['message']);
         }
         $retval = oci_execute($stmt);
         if (!$retval) {
             $e = oci_error($conn);
-            throw new Zend_Db_Exception("SQL execute error for \"$sql\": ".$e['message']);
+            throw new DB\Exception("SQL execute error for \"$sql\": ".$e['message']);
         }
     }
 

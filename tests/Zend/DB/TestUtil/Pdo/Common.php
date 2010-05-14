@@ -20,13 +20,17 @@
  * @version    $Id$
  */
 
+/**
+ * @namespace
+ */
+namespace ZendTest\Db\TestUtil\Pdo;
 
 /**
  * @see Zend_Db_TestUtil_Common
  */
 
 
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
+\PHPUnit_Util_Filter::addFileToFilter(__FILE__);
 
 
 /**
@@ -36,7 +40,7 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class Zend_Db_TestUtil_Pdo_Common extends Zend_Db_TestUtil_Common
+abstract class Common extends \Zend_Db_TestUtil_Common
 {
     protected function _rawQuery($sql)
     {
@@ -44,7 +48,7 @@ abstract class Zend_Db_TestUtil_Pdo_Common extends Zend_Db_TestUtil_Common
         $retval = $conn->query($sql);
         if (!$retval) {
             $e = $conn->error;
-            throw new Zend_Db_Exception("SQL error for \"$sql\": $e");
+            throw new \Zend\DB\Exception("SQL error for \"$sql\": $e");
         }
     }
 }

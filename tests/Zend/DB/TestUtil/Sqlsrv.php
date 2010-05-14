@@ -21,10 +21,11 @@
  */
 
 /**
- * @see Zend_Db_TestUtil_Common
+ * @namespace
  */
+namespace ZendTest\DB\TestUtil;
+use Zend\DB;
 
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
 
 /**
  * @category   Zend
@@ -33,7 +34,7 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Db_TestUtil_Sqlsrv extends Zend_Db_TestUtil_Common
+class Sqlsrv extends Common
 {
     public function getParams(array $constants = array())
     {
@@ -85,7 +86,7 @@ class Zend_Db_TestUtil_Sqlsrv extends Zend_Db_TestUtil_Common
     {
         $sql       = "exec sp_tables @table_name = " . $this->_db->quoteIdentifier($tableName, true);
         $stmt      = $this->_db->query($sql);
-        $tableList = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
+        $tableList = $stmt->fetchAll(DB\DB::FETCH_ASSOC);
 
         if (count($tableList) > 0 && $tableName == $tableList[0]['TABLE_NAME']) {
             return null;
@@ -97,7 +98,7 @@ class Zend_Db_TestUtil_Sqlsrv extends Zend_Db_TestUtil_Common
     {
         $sql         = "exec sp_tables @table_name = " . $this->_db->quoteIdentifier($elementName, true);
         $stmt        = $this->_db->query($sql);
-        $elementList = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
+        $elementList = $stmt->fetchAll(DB\DB::FETCH_ASSOC);
 
         if (count($elementList) > 0 && $elementName == $elementList[0]['TABLE_NAME']) {
             return "DROP $typeElement " . $this->_db->quoteIdentifier($elementName);
@@ -134,7 +135,7 @@ class Zend_Db_TestUtil_Sqlsrv extends Zend_Db_TestUtil_Common
         if (!$retval) {
             $e = sqlsrv_errors();
             $e = $e[0]['message'];
-            throw new Zend_Db_Exception("SQL error for \"$sql\": $e");
+            throw new DB\Exception("SQL error for \"$sql\": $e");
         }
     }
 }

@@ -20,8 +20,13 @@
  * @version    $Id $
  */
 
+/**
+ * @namespace
+ */
+namespace ZendTest\Db\TestUtil;
+use Zend\DB;
 
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
+\PHPUnit_Util_Filter::addFileToFilter(__FILE__);
 
 /**
  * @category   Zend
@@ -30,10 +35,10 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Db_TestUtil_Db2 extends Zend_Db_TestUtil_Common
+class Db2 extends \Zend_Db_TestUtil_Common
 {
 
-    public function setUp(Zend_Db_Adapter_Abstract $db)
+    public function setUp(\Zend\DB\Adapter\AbstractAdapter $db)
     {
         $this->setAdapter($db);
         $this->createSequence('zfproducts_seq');
@@ -81,7 +86,7 @@ class Zend_Db_TestUtil_Db2 extends Zend_Db_TestUtil_Common
     {
         $data = parent::_getDataProducts();
         foreach ($data as &$row) {
-            $row['product_id'] = new Zend_Db_Expr('NEXTVAL FOR '.$this->_db->quoteIdentifier('zfproducts_seq', true));
+            $row['product_id'] = new DB\Expr('NEXTVAL FOR '.$this->_db->quoteIdentifier('zfproducts_seq', true));
         }
         return $data;
     }
@@ -94,7 +99,7 @@ class Zend_Db_TestUtil_Db2 extends Zend_Db_TestUtil_Common
                 'doc_clob'  => 'this is the clob that never ends...'.
                                'this is the clob that never ends...'.
                                'this is the clob that never ends...',
-                'doc_blob'  => new Zend_Db_Expr("BLOB('this is the blob that never ends...".
+                'doc_blob'  => new DB\Expr("BLOB('this is the blob that never ends...".
                                "this is the blob that never ends...".
                                "this is the blob that never ends...')")
             )
@@ -191,7 +196,7 @@ class Zend_Db_TestUtil_Db2 extends Zend_Db_TestUtil_Common
 
         if (!$result) {
             $e = db2_stmt_errormsg();
-            throw new Zend_Db_Exception("SQL error for \"$sql\": $e");
+            throw new DB\Exception("SQL error for \"$sql\": $e");
         }
     }
 

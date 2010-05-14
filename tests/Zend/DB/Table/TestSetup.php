@@ -20,13 +20,10 @@
  * @version    $Id$
  */
 
-
 /**
- * @see Zend_Db_TestSetup
+ * @namespace
  */
-
-
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
+namespace ZendTest\DB\Table;
 
 
 /**
@@ -38,7 +35,7 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @group      Zend_Db
  * @group      Zend_Db_Table
  */
-abstract class Zend_Db_Table_TestSetup extends Zend_Db_TestSetup
+abstract class TestSetup extends \ZendTest\DB\TestSetup
 {
 
     /**
@@ -52,17 +49,17 @@ abstract class Zend_Db_Table_TestSetup extends Zend_Db_TestSetup
     {
         parent::setUp();
 
-        $this->_table['accounts']      = $this->_getTable('Zend_Db_Table_Asset_TableAccounts');
-        $this->_table['bugs']          = $this->_getTable('Zend_Db_Table_Asset_TableBugs');
-        $this->_table['bugs_products'] = $this->_getTable('Zend_Db_Table_Asset_TableBugsProducts');
-        $this->_table['products']      = $this->_getTable('Zend_Db_Table_Asset_TableProducts');
+        $this->_table['accounts']      = $this->_getTable('\ZendTest\DB\Table\TestAsset\TableAccounts');
+        $this->_table['bugs']          = $this->_getTable('\ZendTest\DB\Table\TestAsset\TableBugs');
+        $this->_table['bugs_products'] = $this->_getTable('\ZendTest\DB\Table\TestAsset\TableBugsProducts');
+        $this->_table['products']      = $this->_getTable('\ZendTest\DB\Table\TestAsset\TableProducts');
     }
 
     public function tearDown()
     {
-        if ($this->_runtimeIncludePath) {
-            $this->_restoreIncludePath();
-        }
+//        if ($this->_runtimeIncludePath) {
+//            $this->_restoreIncludePath();
+//        }
         parent::tearDown();
     }
 
@@ -71,25 +68,25 @@ abstract class Zend_Db_Table_TestSetup extends Zend_Db_TestSetup
         if (is_array($options) && !isset($options['db'])) {
             $options['db'] = $this->_db;
         }
-        if (!class_exists($tableClass)) {
-            $this->_useMyIncludePath();
-            Zend_Loader::loadClass($tableClass);
-            $this->_restoreIncludePath();
-        }
+//        if (!class_exists($tableClass)) {
+//            $this->_useMyIncludePath();
+//            \Zend\Loader::loadClass($tableClass);
+//            $this->_restoreIncludePath();
+//        }
         $table = new $tableClass($options);
         return $table;
     }
 
-    protected function _useMyIncludePath()
-    {
-        $this->_runtimeIncludePath = get_include_path();
-        set_include_path(dirname(__FILE__) . '/_files/' . PATH_SEPARATOR . $this->_runtimeIncludePath);
-    }
-
-    protected function _restoreIncludePath()
-    {
-        set_include_path($this->_runtimeIncludePath);
-        $this->_runtimeIncludePath = null;
-    }
+//    protected function _useMyIncludePath()
+//    {
+//        $this->_runtimeIncludePath = get_include_path();
+//        set_include_path(dirname(__FILE__) . '/_files/' . PATH_SEPARATOR . $this->_runtimeIncludePath);
+//    }
+//
+//    protected function _restoreIncludePath()
+//    {
+//        set_include_path($this->_runtimeIncludePath);
+//        $this->_runtimeIncludePath = null;
+//    }
 
 }

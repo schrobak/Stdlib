@@ -21,10 +21,10 @@
  */
 
 /**
- * @see Zend_Db_TestUtil_Common
+ * @namespace
  */
+namespace ZendTest\DB\TestUtil;
 
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
 
 /**
  * @category   Zend
@@ -33,7 +33,7 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Db_TestUtil_Static extends Zend_Db_TestUtil_Common
+class StaticUtility extends Common
 {
 
     public function getParams(array $constants = array())

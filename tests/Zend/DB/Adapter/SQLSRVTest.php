@@ -21,14 +21,11 @@
  */
 
 /**
- * @see Zend_Db_Adapter_TestCommon
+ * @namespace
  */
+namespace ZendTest\DB\Adapter;
+use Zend\DB;
 
-/**
- * @see Zend_Db_Adapter_Sqlsrv
- */
-
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
 
 /**
  * @category   Zend
@@ -37,24 +34,29 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
+class SQLSRVTest extends AbstractTest
 {
     protected $_numericDataTypes = array(
-        Zend_Db::INT_TYPE    => Zend_Db::INT_TYPE,
-        Zend_Db::BIGINT_TYPE => Zend_Db::BIGINT_TYPE,
-        Zend_Db::FLOAT_TYPE  => Zend_Db::FLOAT_TYPE,
-        'INT'                => Zend_Db::INT_TYPE,
-        'SMALLINT'           => Zend_Db::INT_TYPE,
-        'TINYINT'            => Zend_Db::INT_TYPE,
-        'BIGINT'             => Zend_Db::BIGINT_TYPE,
-        'DECIMAL'            => Zend_Db::FLOAT_TYPE,
-        'FLOAT'              => Zend_Db::FLOAT_TYPE,
-        'MONEY'              => Zend_Db::FLOAT_TYPE,
-        'NUMERIC'            => Zend_Db::FLOAT_TYPE,
-        'REAL'               => Zend_Db::FLOAT_TYPE,
-        'SMALLMONEY'         => Zend_Db::FLOAT_TYPE
+        DB\DB::INT_TYPE    => DB\DB::INT_TYPE,
+        DB\DB::BIGINT_TYPE => DB\DB::BIGINT_TYPE,
+        DB\DB::FLOAT_TYPE  => DB\DB::FLOAT_TYPE,
+        'INT'                => DB\DB::INT_TYPE,
+        'SMALLINT'           => DB\DB::INT_TYPE,
+        'TINYINT'            => DB\DB::INT_TYPE,
+        'BIGINT'             => DB\DB::BIGINT_TYPE,
+        'DECIMAL'            => DB\DB::FLOAT_TYPE,
+        'FLOAT'              => DB\DB::FLOAT_TYPE,
+        'MONEY'              => DB\DB::FLOAT_TYPE,
+        'NUMERIC'            => DB\DB::FLOAT_TYPE,
+        'REAL'               => DB\DB::FLOAT_TYPE,
+        'SMALLMONEY'         => DB\DB::FLOAT_TYPE
     );
 
+    public function setup()
+    {
+        $this->markTestSkipped('This suite is skipped until Zend\DB can be refactored.');
+    }
+    
     /**
      * Test AUTO_QUOTE_IDENTIFIERS option
      * Case: Zend_Db::AUTO_QUOTE_IDENTIFIERS = true
@@ -64,9 +66,9 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
         $params = $this->_util->getParams();
 
         $params['options'] = array(
-            Zend_Db::AUTO_QUOTE_IDENTIFIERS => true
+            DB\DB::AUTO_QUOTE_IDENTIFIERS => true
         );
-        $db = Zend_Db::factory($this->getDriver(), $params);
+        $db = DB\DB::factory($this->getDriver(), $params);
         $db->getConnection();
 
         $select = $this->_db->select();
@@ -243,7 +245,7 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
     {
         $bugs   = $this->_db->quoteIdentifier('zfbugs');
         $bug_id = $this->_db->quoteIdentifier('bug_id');
-        $expr   = new Zend_Db_Expr('2+3');
+        $expr   = new DB\Expr('2+3');
 
         $row = array (
             'bug_id'          => $expr,
@@ -277,7 +279,7 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
 
         $params['charset'] = 'utf8';
 
-        $db = Zend_Db::factory($this->getDriver(), $params);
+        $db = DB\DB::factory($this->getDriver(), $params);
 
          // create a new util object, with the new db adapter
         $driver    = $this->getDriver();
@@ -306,7 +308,7 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
         $select = $db->select()->from($tableName, array('id', 'stuff'));
 
         $stmt = $db->query($select);
-        $fetched = $stmt->fetchAll(Zend_Db::FETCH_NUM);
+        $fetched = $stmt->fetchAll(DB\DB::FETCH_NUM);
         $a = array(
             0 => array(0 => 1, 1 => 'äöüß')
         );
@@ -423,7 +425,7 @@ class Zend_Db_Adapter_SqlsrvTest extends Zend_Db_Adapter_TestCommon
         try {
             $db->setTransactionIsolationLevel('not existing isolation level');
             $this->fail("Not existing isolation types are allowed to set");
-        } catch (Zend_Db_Adapter_Sqlsrv_Exception $e) {
+        } catch (\Zend\DB\Adapter\Sqlsrv\Exception $e) {
         }
 
         $this->assertTrue($db->setTransactionIsolationLevel(), "Setting to default should work by passsing null or nothing");

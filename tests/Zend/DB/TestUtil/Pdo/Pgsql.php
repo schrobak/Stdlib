@@ -21,10 +21,15 @@
  */
 
 /**
+ * @namespace
+ */
+namespace ZendTest\Db\TestUtil\Pdo;
+
+/**
  * @see Zend_Db_TestUtil_Pdo_Common
  */
 
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
+\PHPUnit_Util_Filter::addFileToFilter(__FILE__);
 
 /**
  * @category   Zend
@@ -33,10 +38,10 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Db_TestUtil_Pdo_Pgsql extends Zend_Db_TestUtil_Pdo_Common
+class Pgsql extends \Zend_Db_TestUtil_Pdo_Common
 {
 
-    public function setUp(Zend_Db_Adapter_Abstract $db)
+    public function setUp(\Zend\DB\Adapter\AbstractAdapter $db)
     {
         $this->_db = $db;
         $this->createSequence('zfproducts_seq');
@@ -75,7 +80,7 @@ class Zend_Db_TestUtil_Pdo_Pgsql extends Zend_Db_TestUtil_Pdo_Common
     {
         $data = parent::_getDataProducts();
         foreach ($data as &$row) {
-            $row['product_id'] = new Zend_Db_Expr('NEXTVAL('.$this->_db->quote('zfproducts_seq').')');
+            $row['product_id'] = new \Zend\DB\Expr('NEXTVAL('.$this->_db->quote('zfproducts_seq').')');
         }
         return $data;
     }

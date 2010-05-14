@@ -20,8 +20,10 @@
  * @version    $Id $
  */
 
-
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
+/**
+ * @namespace
+ */
+namespace ZendTest\DB\Statement;
 
 /**
  * @category   Zend
@@ -32,9 +34,14 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @group      Zend_Db
  * @group      Zend_Db_Statement
  */
-class Zend_Db_Statement_OracleTest extends Zend_Db_Statement_TestCommon
+class OracleTest extends AbstractTest
 {
 
+    public function setup()
+    {
+        $this->markTestSkipped('This suite is skipped until Zend\DB can be refactored.');
+    }
+    
     public function testStatementBindParamByPosition()
     {
         $this->markTestSkipped($this->getDriver() . ' does not support bound parameters by position');
@@ -91,7 +98,7 @@ class Zend_Db_Statement_OracleTest extends Zend_Db_Statement_TestCommon
         try {
             $stmt->nextRowset();
             $this->fail('Expected to catch Zend_Db_Statement_Oracle_Exception');
-        } catch (Zend_Exception $e) {
+        } catch (\Zend\Exception $e) {
             $this->assertType('Zend_Db_Statement_Oracle_Exception', $e,
                 'Expecting object of type Zend_Db_Statement_Oracle_Exception, got '.get_class($e));
             $this->assertEquals('HYC00 Optional feature not implemented', $e->getMessage());

@@ -20,8 +20,11 @@
  * @version    $Id $
  */
 
+/**
+ * @namespace
+ */
+namespace ZendTest\DB\Statement;
 
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
 
 /**
  * @category   Zend
@@ -32,9 +35,14 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @group      Zend_Db
  * @group      Zend_Db_Statement
  */
-class Zend_Db_Statement_Db2Test extends Zend_Db_Statement_TestCommon
+class Db2Test extends AbstractTest
 {
 
+    public function setup()
+    {
+        $this->markTestSkipped('This suite is skipped until Zend\DB can be refactored.');
+    }
+    
     public function testStatementErrorCodeKeyViolation()
     {
         $this->markTestIncomplete($this->getDriver() . ' does not return error codes correctly.');
@@ -87,7 +95,7 @@ class Zend_Db_Statement_Db2Test extends Zend_Db_Statement_TestCommon
             // test with no colon prefix
             $this->assertTrue($stmt->bindParam('name', $productNameValue), 'Expected bindParam(\'name\') to return true');
             $this->fail('Expected to catch Zend_Db_Statement_Exception');
-        } catch (Zend_Exception $e) {
+        } catch (\Zend\Exception $e) {
             $this->assertType('Zend_Db_Statement_Exception', $e,
                 'Expecting object of type Zend_Db_Statement_Exception, got '.get_class($e));
             $this->assertEquals("Invalid bind-variable name ':id'", $e->getMessage());
@@ -115,7 +123,7 @@ class Zend_Db_Statement_Db2Test extends Zend_Db_Statement_TestCommon
             // test with no colon prefix
             $this->assertTrue($stmt->bindParam('name', $productNameValue), 'Expected bindParam(\'name\') to return true');
             $this->fail('Expected to catch Zend_Db_Statement_Exception');
-        } catch (Zend_Exception $e) {
+        } catch (\Zend\Exception $e) {
             $this->assertType('Zend_Db_Statement_Exception', $e,
                 'Expecting object of type Zend_Db_Statement_Exception, got '.get_class($e));
             $this->assertEquals("Invalid bind-variable name ':id'", $e->getMessage());

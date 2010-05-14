@@ -20,14 +20,10 @@
  * @version    $Id$
  */
 
-
 /**
- * @see Zend_Db_Profiler_TestCommon
+ * @namespace
  */
-
-
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
-
+namespace ZendTest\Db\Profiler;
 
 /**
  * @category   Zend
@@ -38,8 +34,13 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @group      Zend_Db
  * @group      Zend_Db_Profiler
  */
-class Zend_Db_Profiler_SqlsrvTest extends Zend_Db_Profiler_TestCommon
+class SQLSRVTest extends AbstractTest
 {
+    public function setup()
+    {
+        $this->markTestSkipped('This suite is skipped until Zend\DB can be refactored.');
+    }
+    
     public function testProfilerPreparedStatementWithBoundParams()
     {
         $this->markTestIncomplete($this->getDriver() . ' is having trouble with binding params');

@@ -20,8 +20,11 @@
  * @version    $Id $
  */
 
+/**
+ * @namespace
+ */
+namespace ZendTest\DB\Select;
 
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
 
 /**
  * @category   Zend
@@ -32,9 +35,14 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  * @group      Zend_Db
  * @group      Zend_Db_Select
  */
-class Zend_Db_Select_OracleTest extends Zend_Db_Select_TestCommon
+class OracleTest extends AbstractTest
 {
 
+    public function setup()
+    {
+        $this->markTestSkipped('This suite is skipped until Zend\DB can be refactored.');
+    }
+    
     /**
      * ZF-4330: this test must be done on string field
      */
