@@ -20,14 +20,11 @@
  * @version    $Id$
  */
 
-// Call Zend_Controller_Action_Helper_UrlTest::main() if this source file is executed directly.
-if (!defined("PHPUnit_MAIN_METHOD")) {
-    define("PHPUnit_MAIN_METHOD", "Zend_Controller_Action_Helper_UrlTest::main");
-}
-
-
-
-
+/**
+ * @namespace
+ */
+namespace ZendTest\Controller\Action\Helper;
+use Zend\Controller\Router\Route;
 
 /**
  * Test class for Zend_Controller_Action_Helper_Url.
@@ -41,19 +38,8 @@ if (!defined("PHPUnit_MAIN_METHOD")) {
  * @group      Zend_Controller_Action
  * @group      Zend_Controller_Action_Helper
  */
-class Zend_Controller_Action_Helper_UrlTest extends PHPUnit_Framework_TestCase
+class URLTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Runs the test methods of this class.
-     *
-     * @return void
-     */
-    public static function main()
-    {
-
-        $suite  = new PHPUnit_Framework_TestSuite("Zend_Controller_Action_Helper_UrlTest");
-        $result = PHPUnit_TextUI_TestRunner::run($suite);
-    }
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -63,10 +49,10 @@ class Zend_Controller_Action_Helper_UrlTest extends PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->front = Zend_Controller_Front::getInstance();
+        $this->front = \Zend\Controller\Front::getInstance();
         $this->front->resetInstance();
-        $this->front->setRequest(new Zend_Controller_Request_Http());
-        $this->helper = new Zend_Controller_Action_Helper_Url();
+        $this->front->setRequest(new \Zend\Controller\Request\HTTP());
+        $this->helper = new \Zend\Controller\Action\Helper\Url();
     }
 
     /**
@@ -108,7 +94,7 @@ class Zend_Controller_Action_Helper_UrlTest extends PHPUnit_Framework_TestCase
     public function testUrlMethodCreatesUrlBasedOnNamedRouteAndPassedParameters()
     {
         $router = $this->front->getRouter();
-        $route  = new Zend_Controller_Router_Route(
+        $route  = new Route\Route(
             'foo/:action/:page',
             array(
                 'module'     => 'default',
@@ -118,14 +104,14 @@ class Zend_Controller_Action_Helper_UrlTest extends PHPUnit_Framework_TestCase
             )
         );
         $router->addRoute('foo', $route);
-        $url = $this->helper->url(array('action' => 'bar', 'page' => 3), 'foo');
+        $url = $this->helper->__invoke(array('action' => 'bar', 'page' => 3), 'foo');
         $this->assertEquals('/foo/bar/3', $url);
     }
 
     public function testUrlMethodCreatesUrlBasedOnNamedRouteAndDefaultParameters()
     {
         $router = $this->front->getRouter();
-        $route  = new Zend_Controller_Router_Route(
+        $route  = new Route\Route(
             'foo/:action/:page',
             array(
                 'module'     => 'default',
@@ -135,7 +121,7 @@ class Zend_Controller_Action_Helper_UrlTest extends PHPUnit_Framework_TestCase
             )
         );
         $router->addRoute('foo', $route);
-        $url = $this->helper->url(array(), 'foo');
+        $url = $this->helper->__invoke(array(), 'foo');
         $this->assertEquals('/foo', $url);
     }
 
@@ -143,7 +129,7 @@ class Zend_Controller_Action_Helper_UrlTest extends PHPUnit_Framework_TestCase
     {
         $this->front->getRouter()->addDefaultRoutes();
         $this->front->addModuleDirectory(dirname(__FILE__) . '/../../_files/modules');
-        $url = $this->helper->url(array(
+        $url = $this->helper->__invoke(array(
             'module'     => 'foo',
             'controller' => 'bar',
             'action'     => 'baz',
@@ -181,5 +167,5 @@ class Zend_Controller_Action_Helper_UrlTest extends PHPUnit_Framework_TestCase
 
 // Call Zend_Controller_Action_Helper_UrlTest::main() if this source file is executed directly.
 if (PHPUnit_MAIN_METHOD == "Zend_Controller_Action_Helper_UrlTest::main") {
-    Zend_Controller_Action_Helper_UrlTest::main();
+    \Zend_Controller_Action_Helper_UrlTest::main();
 }
