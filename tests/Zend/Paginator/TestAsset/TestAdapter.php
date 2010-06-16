@@ -20,6 +20,10 @@
  * @version    $Id$
  */
 
+/**
+ * @namespace
+ */
+namespace ZendTest\Paginator\TestAsset;
 
 /**
  * @category   Zend
@@ -28,7 +32,7 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zf4207 extends ArrayObject implements Zend_Paginator_Adapter_Interface
+class TestAdapter extends \ArrayObject implements \Zend\Paginator\Adapter\AdapterInterface
 {
     public function count()
     {
@@ -37,6 +41,6 @@ class Zf4207 extends ArrayObject implements Zend_Paginator_Adapter_Interface
 
     public function getItems($pageNumber, $itemCountPerPage)
     {
-        return new ArrayObject(range(1, 10));
+        return new \ArrayObject(range(1, 10));
     }
 }
