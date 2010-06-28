@@ -20,31 +20,54 @@
  * @version    $Id$
  */
 
-PHPUnit_Util_Filter::addFileToFilter(__FILE__);
+namespace ZendTest\Form\Element\TestAsset\TransferAdapter;
 
+use Zend\File\Transfer\Adapter\AbstractAdapter;
 
 /**
- * Mock file for testbed
- *
  * @category   Zend
  * @package    Zend_Form
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class My_Decorator_TableRow extends Zend_Form_Decorator_Abstract
+class Foo extends AbstractAdapter
 {
+    public $received = false;
 
-    /**
-     * Test Function for render
-     *
-     * @param  string $content Content to display
-     * @return string
-     */
-    public function render($content)
+    public function send($options = null)
     {
-        $e = $this->getElement();
-        return "<tr><td>{$e->getLabel()}</td><td>{$content}</td><td>{$e->getDescription()}</td></tr>";
+        return;
     }
 
+    public function receive($options = null)
+    {
+        $this->received = true;
+        return;
+    }
+
+    public function isSent($file = null)
+    {
+        return false;
+    }
+
+    public function isReceived($file = null)
+    {
+        return $this->received;
+    }
+
+    public function isUploaded($files = null)
+    {
+        return true;
+    }
+
+    public function isFiltered($files = null)
+    {
+        return true;
+    }
+
+    public static function getProgress()
+    {
+        return;
+    }
 }
