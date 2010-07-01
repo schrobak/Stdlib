@@ -20,7 +20,7 @@
  * @version    $Id$
  */
 
-namespace ZendTest\Application\TestAssett;
+namespace ZendTest\Application\TestAsset;
 
 use Zend\Application\AbstractBootstrap;
 
