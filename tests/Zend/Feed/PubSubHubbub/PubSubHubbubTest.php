@@ -13,8 +13,7 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Feed
- * @subpackage UnitTests
+ * @package    UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
@@ -23,33 +22,40 @@
 /**
  * @namespace
  */
-namespace My\Extension\JungleBooks;
+namespace ZendTest\Feed\PubSubHubbub;
+use Zend\Feed\PubSubHubbub;
 
 /**
  * @category   Zend
  * @package    Zend_Feed
  * @subpackage UnitTests
+ * @group      Zend_Feed
+ * @group      Zend_Feed_Subsubhubbub
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Feed extends \Zend\Feed\Reader\Extension\FeedAbstract
+class PubSubHubbubTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function getDaysPopularBookLink()
+    public function teardown()
     {
-        if (isset($this->_data['dayPopular'])) {
-            return $this->_data['dayPopular'];
-        }
-        $dayPopular = $this->_xpath->evaluate('string(' . $this->getXpathPrefix() . '/jungle:dayPopular)');
-        if (!$dayPopular) {
-            $dayPopular = null;
-        }
-        $this->_data['dayPopular'] = $dayPopular;
-        return $this->_data['dayPopular'];
+        PubSubHubbub\PubSubHubbub::clearHttpClient();
     }
 
-    protected function _registerNamespaces()
+    public function testCanSetCustomHttpClient()
     {
-        $this->_xpath->registerNamespace('jungle', 'http://example.com/junglebooks/rss/module/1.0/');
+        PubSubHubbub\PubSubHubbub::setHttpClient(new Pubsub());
+        $this->assertType('ZendTest\Feed\PubSubHubbub\Pubsub', PubSubHubbub\PubSubHubbub::getHttpClient());
     }
+
+    public function testCanDetectHubs()
+    {
+        $feed = \Zend\Feed\Reader\Reader::importFile(dirname(__FILE__) . '/_files/rss20.xml');
+        $this->assertEquals(array(
+            'http://www.example.com/hub', 'http://www.example.com/hub2'
+        ), PubSubHubbub\PubSubHubbub::detectHubs($feed));
+    }
+
 }
+
+class Pubsub extends \Zend\HTTP\Client {}

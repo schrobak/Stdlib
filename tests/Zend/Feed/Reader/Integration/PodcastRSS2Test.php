@@ -36,7 +36,7 @@ use Zend\Date;
  * @group      Zend_Feed
  * @group      Zend_Feed_Reader
  */
-class WordpressAtom10Test extends \PHPUnit_Framework_TestCase
+class PodcastRSS2Test extends \PHPUnit_Framework_TestCase
 {
 
     protected $_feedSamplePath = null;
@@ -44,7 +44,7 @@ class WordpressAtom10Test extends \PHPUnit_Framework_TestCase
     public function setup()
     {
         Reader\Reader::reset();
-        $this->_feedSamplePath = dirname(__FILE__) . '/_files/wordpress-atom10.xml';
+        $this->_feedSamplePath = dirname(__FILE__) . '/_files/podcast.xml';
         $this->_options = Date\Date::setOptions();
         foreach($this->_options as $k=>$v) {
             if (is_null($v)) {
@@ -59,30 +59,61 @@ class WordpressAtom10Test extends \PHPUnit_Framework_TestCase
         Date\Date::setOptions($this->_options);
     }
 
-    public function testGetsTitle()
+    /**
+     * Feed level testing
+     */
+
+    public function testGetsNewFeedUrl()
     {
         $feed = Reader\Reader::importString(
             file_get_contents($this->_feedSamplePath)
         );
-        $this->assertEquals('Norm 2782', $feed->getTitle());
+        $this->assertEquals('http://newlocation.com/example.rss', $feed->getNewFeedUrl());
     }
 
-    public function testGetsAuthors()
+    public function testGetsOwner()
+    {
+        $feed = Reader\Reader::importString(
+            file_get_contents($this->_feedSamplePath)
+        );
+        $this->assertEquals('john.doe@example.com (John Doe)', $feed->getOwner());
+    }
+
+    public function testGetsCategories()
     {
         $feed = Reader\Reader::importString(
             file_get_contents($this->_feedSamplePath)
         );
         $this->assertEquals(array(
-            array('name'=>'norm2782','uri'=>'http://www.norm2782.com')
-        ), (array) $feed->getAuthors());
+            'Technology' => array(
+                'Gadgets' => null
+            ),
+            'TV & Film' => null
+        ), $feed->getCategories());
     }
 
-    public function testGetsSingleAuthor()
+    public function testGetsTitle()
     {
         $feed = Reader\Reader::importString(
             file_get_contents($this->_feedSamplePath)
         );
-        $this->assertEquals(array('name'=>'norm2782','uri'=>'http://www.norm2782.com'), $feed->getAuthor());
+        $this->assertEquals('All About Everything', $feed->getTitle());
+    }
+
+    public function testGetsCastAuthor()
+    {
+        $feed = Reader\Reader::importString(
+            file_get_contents($this->_feedSamplePath)
+        );
+        $this->assertEquals('John Doe', $feed->getCastAuthor());
+    }
+
+    public function testGetsFeedBlock()
+    {
+        $feed = Reader\Reader::importString(
+            file_get_contents($this->_feedSamplePath)
+        );
+        $this->assertEquals('no', $feed->getBlock());
     }
 
     public function testGetsCopyright()
@@ -90,7 +121,7 @@ class WordpressAtom10Test extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString(
             file_get_contents($this->_feedSamplePath)
         );
-        $this->assertEquals(null, $feed->getCopyright());
+        $this->assertEquals('℗ & © 2005 John Doe & Family', $feed->getCopyright());
     }
 
     public function testGetsDescription()
@@ -98,7 +129,10 @@ class WordpressAtom10Test extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString(
             file_get_contents($this->_feedSamplePath)
         );
-        $this->assertEquals('Why are you here?', $feed->getDescription());
+        $this->assertEquals('All About Everything is a show about everything.
+            Each week we dive into any subject known to man and talk
+            about it as much as we can. Look for our Podcast in the
+            iTunes Store', $feed->getDescription());
     }
 
     public function testGetsLanguage()
@@ -106,7 +140,7 @@ class WordpressAtom10Test extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString(
             file_get_contents($this->_feedSamplePath)
         );
-        $this->assertEquals('en', $feed->getLanguage());
+        $this->assertEquals('en-us', $feed->getLanguage());
     }
 
     public function testGetsLink()
@@ -114,7 +148,7 @@ class WordpressAtom10Test extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString(
             file_get_contents($this->_feedSamplePath)
         );
-        $this->assertEquals('http://www.norm2782.com', $feed->getLink());
+        $this->assertEquals('http://www.example.com/podcasts/everything/index.html', $feed->getLink());
     }
 
     public function testGetsEncoding()
@@ -125,17 +159,42 @@ class WordpressAtom10Test extends \PHPUnit_Framework_TestCase
         $this->assertEquals('UTF-8', $feed->getEncoding());
     }
 
+    public function testGetsFeedExplicit()
+    {
+        $feed = Reader\Reader::importString(
+            file_get_contents($this->_feedSamplePath)
+        );
+        $this->assertEquals('yes', $feed->getExplicit());
+    }
+
     public function testGetsEntryCount()
     {
         $feed = Reader\Reader::importString(
             file_get_contents($this->_feedSamplePath)
         );
-        $this->assertEquals(10, $feed->count());
+        $this->assertEquals(3, $feed->count());
+    }
+
+    public function testGetsImage()
+    {
+        $feed = Reader\Reader::importString(
+            file_get_contents($this->_feedSamplePath)
+        );
+        $this->assertEquals('http://example.com/podcasts/everything/AllAboutEverything.jpg', $feed->getImage());
     }
 
     /**
      * Entry level testing
      */
+
+    public function testGetsEntryBlock()
+    {
+        $feed = Reader\Reader::importString(
+            file_get_contents($this->_feedSamplePath)
+        );
+        $entry = $feed->current();
+        $this->assertEquals('yes', $entry->getBlock());
+    }
 
     public function testGetsEntryId()
     {
@@ -143,7 +202,7 @@ class WordpressAtom10Test extends \PHPUnit_Framework_TestCase
             file_get_contents($this->_feedSamplePath)
         );
         $entry = $feed->current();
-        $this->assertEquals('http://www.norm2782.com/?p=114', $entry->getId());
+        $this->assertEquals('http://example.com/podcasts/archive/aae20050615.m4a', $entry->getId());
     }
 
     public function testGetsEntryTitle()
@@ -152,78 +211,66 @@ class WordpressAtom10Test extends \PHPUnit_Framework_TestCase
             file_get_contents($this->_feedSamplePath)
         );
         $entry = $feed->current();
-        /**
-         * Note: The three dots below is actually a single Unicode character
-         * called the "three dot leader". Don't replace in error!
-         */
-        $this->assertEquals('Wth… reading books?', $entry->getTitle());
+        $this->assertEquals('Shake Shake Shake Your Spices', $entry->getTitle());
     }
 
-    public function testGetsEntryAuthors()
+    public function testGetsEntryCastAuthor()
     {
         $feed = Reader\Reader::importString(
             file_get_contents($this->_feedSamplePath)
         );
         $entry = $feed->current();
-        $this->assertEquals(array(array('name'=>'norm2782','uri'=>'http://www.norm2782.com')), (array) $entry->getAuthors());
+        $this->assertEquals('John Doe', $entry->getCastAuthor());
     }
 
-    public function testGetsEntrySingleAuthor()
+    public function testGetsEntryExplicit()
     {
         $feed = Reader\Reader::importString(
             file_get_contents($this->_feedSamplePath)
         );
         $entry = $feed->current();
-        $this->assertEquals(array('name'=>'norm2782','uri'=>'http://www.norm2782.com'), $entry->getAuthor());
+        $this->assertEquals('no', $entry->getExplicit());
     }
 
-    public function testGetsEntryDescription()
+    public function testGetsSubtitle()
     {
         $feed = Reader\Reader::importString(
             file_get_contents($this->_feedSamplePath)
         );
         $entry = $feed->current();
-        /**
-         * Note: "’" is not the same as "'" - don't replace in error
-         */
-        $this->assertEquals('Being in New Zealand does strange things to a person. Everybody who knows me, knows I don’t much like that crazy invention called a Book. However, being here I’ve already finished 4 books, all of which I can highly recommend.'."\n\n".'Agile Software Development with Scrum, by Ken Schwaber and Mike Beedle'."\n".'Domain-Driven Design: Tackling Complexity in the [...]', $entry->getDescription());
+        $this->assertEquals('A short primer on table spices
+            ', $entry->getSubtitle());
     }
 
-    public function testGetsEntryContent()
+    public function testGetsSummary()
     {
         $feed = Reader\Reader::importString(
             file_get_contents($this->_feedSamplePath)
         );
         $entry = $feed->current();
-        $this->assertEquals('<p>Being in New Zealand does strange things to a person. Everybody who knows me, knows I don&#8217;t much like that crazy invention called a Book. However, being here I&#8217;ve already finished 4 books, all of which I can highly recommend.</p><ul><li><a href="http://www.amazon.com/Agile-Software-Development-Scrum/dp/0130676349/">Agile Software Development with Scrum, by Ken Schwaber and Mike Beedle</a></li><li><a href="http://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215/">Domain-Driven Design: Tackling Complexity in the Heart of Software, by Eric Evans</a></li><li><a href="http://www.amazon.com/Enterprise-Application-Architecture-Addison-Wesley-Signature/dp/0321127420/">Patterns of Enterprise Application Architecture, by Martin Fowler</a></li><li><a href="http://www.amazon.com/Refactoring-Improving-Existing-Addison-Wesley-Technology/dp/0201485672/">Refactoring: Improving the Design of Existing Code by Martin Fowler</a></li></ul><p>Next up: <a href="http://www.amazon.com/Design-Patterns-Object-Oriented-Addison-Wesley-Professional/dp/0201633612/">Design Patterns: Elements of Reusable Object-Oriented Software, by the Gang of Four</a>. Yes, talk about classics and shame on me for not having ordered it sooner! Also reading <a href="http://www.amazon.com/Implementation-Patterns-Addison-Wesley-Signature-Kent/dp/0321413091/">Implementation Patterns, by Kent Beck</a> at the moment.</p>', str_replace("\n",'',$entry->getContent()));
+        $this->assertEquals('This week we talk about salt and pepper
+                shakers, comparing and contrasting pour rates,
+                construction materials, and overall aesthetics. Come and
+                join the party!', $entry->getSummary());
     }
 
-    public function testGetsEntryLinks()
+    public function testGetsDuration()
     {
         $feed = Reader\Reader::importString(
             file_get_contents($this->_feedSamplePath)
         );
         $entry = $feed->current();
-        $this->assertEquals(array('http://www.norm2782.com/2009/03/wth-reading-books/'), $entry->getLinks());
+        $this->assertEquals('7:04', $entry->getDuration());
     }
 
-    public function testGetsEntryLink()
+    public function testGetsKeywords()
     {
         $feed = Reader\Reader::importString(
             file_get_contents($this->_feedSamplePath)
         );
         $entry = $feed->current();
-        $this->assertEquals('http://www.norm2782.com/2009/03/wth-reading-books/', $entry->getLink());
-    }
-
-    public function testGetsEntryPermaLink()
-    {
-        $feed = Reader\Reader::importString(
-            file_get_contents($this->_feedSamplePath)
-        );
-        $entry = $feed->current();
-        $this->assertEquals('http://www.norm2782.com/2009/03/wth-reading-books/',
-            $entry->getPermaLink());
+        $this->assertEquals('salt, pepper, shaker, exciting
+            ', $entry->getKeywords());
     }
 
     public function testGetsEntryEncoding()
@@ -235,4 +282,18 @@ class WordpressAtom10Test extends \PHPUnit_Framework_TestCase
         $this->assertEquals('UTF-8', $entry->getEncoding());
     }
 
+    public function testGetsEnclosure()
+    {
+        $feed = Reader\Reader::importString(
+            file_get_contents($this->_feedSamplePath)
+        );
+        $entry = $feed->current();
+
+        $expected = new \stdClass();
+        $expected->url    = 'http://example.com/podcasts/everything/AllAboutEverythingEpisode3.m4a';
+        $expected->length = '8727310';
+        $expected->type   = 'audio/x-m4a';
+
+        $this->assertEquals($expected, $entry->getEnclosure());
+    }
 }

@@ -23,7 +23,8 @@
 /**
  * @namespace
  */
-namespace My\Extension\JungleBooks;
+namespace ZendTest\Feed;
+
 
 /**
  * @category   Zend
@@ -31,25 +32,25 @@ namespace My\Extension\JungleBooks;
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @group      Zend_Feed
  */
-class Feed extends \Zend\Feed\Reader\Extension\FeedAbstract
+class AtomEntryOnlyTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function getDaysPopularBookLink()
+    public function testEntryOnly()
     {
-        if (isset($this->_data['dayPopular'])) {
-            return $this->_data['dayPopular'];
-        }
-        $dayPopular = $this->_xpath->evaluate('string(' . $this->getXpathPrefix() . '/jungle:dayPopular)');
-        if (!$dayPopular) {
-            $dayPopular = null;
-        }
-        $this->_data['dayPopular'] = $dayPopular;
-        return $this->_data['dayPopular'];
+        $feed = new \Zend\Feed\Atom(null, file_get_contents(dirname(__FILE__) . '/_files/TestAtomFeedEntryOnly.xml'));
+
+        $this->assertEquals(1, $feed->count(), 'The entry-only feed should report one entry.');
+
+        $feed->current();
+        
+        foreach ($feed as $entry);
+        $this->assertEquals('Zend\Feed\Entry\Atom', get_class($entry),
+                            'The single entry should be an instance of Zend_Feed_Entry_Atom');
+
+        $this->assertEquals('1', $entry->id(), 'The single entry should have id 1');
+        $this->assertEquals('Bug', $entry->title(), 'The entry\'s title should be "Bug"');
     }
 
-    protected function _registerNamespaces()
-    {
-        $this->_xpath->registerNamespace('jungle', 'http://example.com/junglebooks/rss/module/1.0/');
-    }
 }

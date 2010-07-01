@@ -23,7 +23,16 @@
 /**
  * @namespace
  */
-namespace My\Extension\JungleBooks;
+namespace ZendTest\Feed;
+use Zend\Feed;
+
+/**
+ * Test helper
+ */
+
+/**
+ * @see Zend_Feed
+ */
 
 /**
  * @category   Zend
@@ -31,25 +40,24 @@ namespace My\Extension\JungleBooks;
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @group      Zend_Feed
  */
-class Feed extends \Zend\Feed\Reader\Extension\FeedAbstract
+class CountTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function getDaysPopularBookLink()
+    public function testCount()
     {
-        if (isset($this->_data['dayPopular'])) {
-            return $this->_data['dayPopular'];
-        }
-        $dayPopular = $this->_xpath->evaluate('string(' . $this->getXpathPrefix() . '/jungle:dayPopular)');
-        if (!$dayPopular) {
-            $dayPopular = null;
-        }
-        $this->_data['dayPopular'] = $dayPopular;
-        return $this->_data['dayPopular'];
+        $f = Feed\Feed::importFile(dirname(__FILE__) . '/_files/TestAtomFeed.xml');
+        $this->assertEquals($f->count(), 2, 'Feed count should be 2');
     }
 
-    protected function _registerNamespaces()
+    /**
+    * ZF-3848
+    */
+    public function testCountableInterface()
     {
-        $this->_xpath->registerNamespace('jungle', 'http://example.com/junglebooks/rss/module/1.0/');
+        $f = Feed\Feed::importFile(dirname(__FILE__) . '/_files/TestAtomFeed.xml');
+        $this->assertEquals(count($f), 2, 'Feed count should be 2');
     }
+
 }
