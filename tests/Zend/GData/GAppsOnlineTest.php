@@ -59,8 +59,8 @@ class GAppsOnlineTest extends \PHPUnit_Framework_TestCase
         $username = constant('TESTS_ZEND_GDATA_GAPPS_EMAIL');
         $pass = constant('TESTS_ZEND_GDATA_GAPPS_PASSWORD');
         $this->domain = constant('TESTS_ZEND_GDATA_GAPPS_DOMAIN');
-        $client = GData\ClientLogin::getHttpClient($username, $pass, GApps\GApps::AUTH_SERVICE_NAME);
-        $this->gdata = new GApps\GApps($client, $this->domain);
+        $client = GData\ClientLogin::getHttpClient($username, $pass, GApps::AUTH_SERVICE_NAME);
+        $this->gdata = new GApps($client, $this->domain);
 
         // Container to hold users and lists created during tests. All entries in
         // here will have delete() called during tear down.
