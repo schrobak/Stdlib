@@ -23,9 +23,9 @@
 /**
  * @namespace
  */
-namespace ZendTest\JSON\Server;
-use Zend\JSON\Server,
-    Zend\JSON;
+namespace ZendTest\Json\Server;
+use Zend\Json\Server,
+    Zend\Json;
 
 /**
  * Test class for Zend_JSON_Server_Response
@@ -48,7 +48,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->response = new \Zend\JSON\Server\Response();
+        $this->response = new \Zend\Json\Server\Response();
     }
 
     public function testResultShouldBeNullByDefault()
@@ -115,7 +115,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
                        ->setId('foo')
                        ->setVersion('2.0');
         $json = $this->response->toJSON();
-        $test = JSON\JSON::decode($json);
+        $test = Json\Json::decode($json);
 
         $this->assertTrue(is_array($test));
         $this->assertTrue(array_key_exists('result', $test));
@@ -137,7 +137,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
                        ->setResult(true)
                        ->setError($error);
         $json = $this->response->toJSON();
-        $test = JSON\JSON::decode($json);
+        $test = Json\Json::decode($json);
 
         $this->assertTrue(is_array($test));
         $this->assertTrue(array_key_exists('result', $test));
@@ -154,7 +154,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $this->response->setResult(true)
                        ->setId('foo');
         $json = $this->response->__toString();
-        $test = JSON\JSON::decode($json);
+        $test = Json\Json::decode($json);
 
         $this->assertTrue(is_array($test));
         $this->assertTrue(array_key_exists('result', $test));

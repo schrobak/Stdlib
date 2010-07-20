@@ -23,10 +23,10 @@
 /**
  * @namespace
  */
-namespace ZendTest\JSON\Server;
-use Zend\JSON\Server\SMD,
-    Zend\JSON\Server,
-    Zend\JSON;
+namespace ZendTest\Json\Server;
+use Zend\Json\Server\Smd,
+    Zend\Json\Server,
+    Zend\Json;
 
 /**
  * Test class for Zend_JSON_Server_Smd
@@ -77,16 +77,16 @@ class SmdTest extends \PHPUnit_Framework_TestCase
 
     public function testEnvelopeShouldDefaultToJSONRpcVersion1()
     {
-        $this->assertEquals(SMD::ENV_JSONRPC_1, $this->smd->getEnvelope());
+        $this->assertEquals(Smd::ENV_JSONRPC_1, $this->smd->getEnvelope());
     }
 
     public function testEnvelopeAccessorsShouldWorkUnderNormalInput()
     {
         $this->testEnvelopeShouldDefaultToJSONRpcVersion1();
-        $this->smd->setEnvelope(SMD::ENV_JSONRPC_2);
-        $this->assertEquals(SMD::ENV_JSONRPC_2, $this->smd->getEnvelope());
-        $this->smd->setEnvelope(SMD::ENV_JSONRPC_1);
-        $this->assertEquals(SMD::ENV_JSONRPC_1, $this->smd->getEnvelope());
+        $this->smd->setEnvelope(Smd::ENV_JSONRPC_2);
+        $this->assertEquals(Smd::ENV_JSONRPC_2, $this->smd->getEnvelope());
+        $this->smd->setEnvelope(Smd::ENV_JSONRPC_1);
+        $this->assertEquals(Smd::ENV_JSONRPC_1, $this->smd->getEnvelope());
     }
 
     public function testEnvelopeShouldBeLimitedToJSONRpcVersions()
@@ -339,7 +339,7 @@ class SmdTest extends \PHPUnit_Framework_TestCase
         $options = $this->getOptions();
         $this->smd->setOptions($options);
         $json = $this->smd->toJSON();
-        $smd  = JSON\JSON::decode($json);
+        $smd  = Json\Json::decode($json);
         $this->validateServiceArray($smd, $options);
     }
 
@@ -348,7 +348,7 @@ class SmdTest extends \PHPUnit_Framework_TestCase
         $options = $this->getOptions();
         $this->smd->setOptions($options);
         $json = $this->smd->__toString();
-        $smd  = JSON\JSON::decode($json);
+        $smd  = Json\Json::decode($json);
         $this->validateServiceArray($smd, $options);
     }
 
@@ -388,7 +388,7 @@ class SmdTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(array_key_exists('contentType', $smd));
         $this->assertTrue(array_key_exists('services', $smd));
 
-        $this->assertEquals(SMD::SMD_VERSION, $smd['SMDVersion']);
+        $this->assertEquals(Smd::SMD_VERSION, $smd['SMDVersion']);
         $this->assertEquals($options['target'], $smd['target']);
         $this->assertEquals($options['id'], $smd['id']);
         $this->assertEquals($this->smd->getTransport(), $smd['transport']);

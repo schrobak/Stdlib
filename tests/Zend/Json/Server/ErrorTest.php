@@ -23,9 +23,9 @@
 /**
  * @namespace
  */
-namespace ZendTest\JSON\Server;
-use Zend\JSON\Server;
-use Zend\JSON;
+namespace ZendTest\Json\Server;
+use Zend\Json\Server;
+use Zend\Json;
 
 // Call Zend_JSON_Server_ErrorTest::main() if this source file is executed directly.
 if (!defined("PHPUnit_MAIN_METHOD")) {
@@ -152,14 +152,14 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
     {
         $this->setupError();
         $json = $this->error->toJSON();
-        $this->validateArray(JSON\JSON::decode($json));
+        $this->validateArray(Json\Json::decode($json));
     }
 
     public function testCastingToStringShouldCastToJSON()
     {
         $this->setupError();
         $json = $this->error->__toString();
-        $this->validateArray(JSON\JSON::decode($json));
+        $this->validateArray(Json\Json::decode($json));
     }
 
     public function setupError()

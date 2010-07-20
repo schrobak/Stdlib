@@ -23,9 +23,9 @@
 /**
  * @namespace
  */
-namespace ZendTest\JSON\Server\SMD;
-use Zend\JSON\Server\SMD\Service;
-use Zend\JSON\Server;
+namespace ZendTest\Json\Server\Smd;
+use Zend\Json\Server\Smd\Service;
+use Zend\Json\Server;
 
 /**
  * Test class for Zend_JSON_Server_Smd_Service
@@ -141,16 +141,16 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testEnvelopeShouldBeJSONRpc1CompliantByDefault()
     {
-        $this->assertEquals(Server\SMD::ENV_JSONRPC_1, $this->service->getEnvelope());
+        $this->assertEquals(Server\Smd::ENV_JSONRPC_1, $this->service->getEnvelope());
     }
 
     public function testEnvelopeShouldOnlyComplyWithJSONRpc1And2()
     {
         $this->testEnvelopeShouldBeJSONRpc1CompliantByDefault();
-        $this->service->setEnvelope(Server\SMD::ENV_JSONRPC_2);
-        $this->assertEquals(Server\SMD::ENV_JSONRPC_2, $this->service->getEnvelope());
-        $this->service->setEnvelope(Server\SMD::ENV_JSONRPC_1);
-        $this->assertEquals(Server\SMD::ENV_JSONRPC_1, $this->service->getEnvelope());
+        $this->service->setEnvelope(Server\Smd::ENV_JSONRPC_2);
+        $this->assertEquals(Server\Smd::ENV_JSONRPC_2, $this->service->getEnvelope());
+        $this->service->setEnvelope(Server\Smd::ENV_JSONRPC_1);
+        $this->assertEquals(Server\Smd::ENV_JSONRPC_1, $this->service->getEnvelope());
         try {
             $this->service->setEnvelope('JSON-P');
             $this->fail('Should not be able to set non-JSON-RPC spec envelopes');
@@ -308,7 +308,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
     {
         $this->setupSmdValidationObject();
         $json = $this->service->toJSON();
-        $smd  = \Zend\JSON\JSON::decode($json);
+        $smd  = \Zend\Json\Json::decode($json);
 
         $this->assertTrue(array_key_exists('foo', $smd));
         $this->assertTrue(is_array($smd['foo']));
@@ -321,7 +321,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         $this->service->setName('foo')
                       ->setTransport('POST')
                       ->setTarget('/foo')
-                      ->setEnvelope(Server\SMD::ENV_JSONRPC_2)
+                      ->setEnvelope(Server\Smd::ENV_JSONRPC_2)
                       ->addParam('boolean')
                       ->addParam('array')
                       ->addParam('object')
@@ -334,7 +334,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('POST', $smd['transport']);
 
         $this->assertTrue(array_key_exists('envelope', $smd));
-        $this->assertEquals(Server\SMD::ENV_JSONRPC_2, $smd['envelope']);
+        $this->assertEquals(Server\Smd::ENV_JSONRPC_2, $smd['envelope']);
 
         $this->assertTrue(array_key_exists('parameters', $smd));
         $params = $smd['parameters'];

@@ -23,8 +23,8 @@
 /**
  * @namespace
  */
-namespace ZendTest\JSON\Server;
-use Zend\JSON\Server;
+namespace ZendTest\Json\Server;
+use Zend\Json\Server;
 
 /**
  * Test class for Zend_JSON_Server_Cache
@@ -49,7 +49,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->server = new Server\Server();
-        $this->server->setClass('ZendTest\JSON\Server\Foo', 'foo');
+        $this->server->setClass('ZendTest\Json\Server\Foo', 'foo');
         $this->cacheFile = tempnam(sys_get_temp_dir(), 'zjs');
 
         // if (!is_writeable(__DIR__)) {

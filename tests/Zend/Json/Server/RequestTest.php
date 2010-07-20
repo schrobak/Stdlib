@@ -23,8 +23,8 @@
 /**
  * @namespace
  */
-namespace ZendTest\JSON\Server;
-use Zend\JSON;
+namespace ZendTest\Json\Server;
+use Zend\Json;
 
 /**
  * @category   Zend
@@ -45,7 +45,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->request = new \Zend\JSON\Server\Request();
+        $this->request = new \Zend\Json\Server\Request();
     }
 
     /**
@@ -207,7 +207,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     public function testShouldBeAbleToLoadRequestFromJSONString()
     {
         $options = $this->getOptions();
-        $json    = JSON\JSON::encode($options);
+        $json    = Json\Json::encode($options);
         $this->request->loadJSON($json);
 
         $this->assertEquals('foo', $this->request->getMethod());
@@ -219,7 +219,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     {
         $options = $this->getOptions();
         $options['jsonrpc'] = '2.0';
-        $json    = JSON\JSON::encode($options);
+        $json    = Json\Json::encode($options);
         $this->request->loadJSON($json);
         $this->assertEquals('2.0', $this->request->getVersion());
     }
@@ -264,7 +264,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     public function validateJSON($json, array $options)
     {
-        $test = JSON\JSON::decode($json);
+        $test = Json\Json::decode($json);
         $this->assertTrue(is_array($test), var_export($json, 1));
 
         $this->assertTrue(array_key_exists('id', $test));
