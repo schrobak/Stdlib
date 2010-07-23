@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -15,48 +14,27 @@
  *
  * @category   Zend
  * @package    Zend_OpenId
- * @subpackage Zend\OpenId\Provider\GenericProvider
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
 
-/**
- * @namespace
- */
-namespace Zend\OpenId\Provider\User;
+namespace ZendTest\OpenId;
+
+use Zend\OpenId;
 
 /**
- * Abstract class to get/store information about logged in user in Web Browser
- *
  * @category   Zend
  * @package    Zend_OpenId
- * @subpackage Zend\OpenId\Provider\GenericProvider
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class AbstractUser
+class ProviderHelper extends OpenId\Provider\GenericProvider
 {
-
-    /**
-     * Stores information about logged in user
-     *
-     * @param string $id user identity URL
-     * @return bool
-     */
-    abstract public function setLoggedInUser($id);
-
-    /**
-     * Returns identity URL of logged in user or false
-     *
-     * @return mixed
-     */
-    abstract public function getLoggedInUser();
-
-    /**
-     * Performs logout. Clears information about logged in user.
-     *
-     * @return bool
-     */
-    abstract public function delLoggedInUser();
+    public function genSecret($func)
+    {
+        return $this->_genSecret($func);
+    }
 }
