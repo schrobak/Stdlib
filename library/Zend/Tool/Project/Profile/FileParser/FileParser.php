@@ -13,8 +13,8 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Application
- * @subpackage Resource
+ * @package    Zend_Tool
+ * @subpackage Framework
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
@@ -23,18 +23,38 @@
 /**
  * @namespace
  */
-namespace Zend\Application;
+namespace Zend\Tool\Project\Profile\FileParser;
+use Zend\Tool\Project\Profile\Profile;
 
 /**
- * Exception class for Zend_Application
- *
- * @uses       \Zend\Application\Exception
  * @category   Zend
- * @package    Zend_Application
- * @subpackage Resource
+ * @package    Zend_Tool
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class ResourceException extends Exception
+interface FileParser
 {
+
+    /**
+     * serialize()
+     *
+     * This method should take a profile and return a string
+     * representation of it.
+     *
+     * @param \Zend\Tool\Project\Profile $profile
+     * @return string
+     */
+    public function serialize(Profile $profile);
+
+    /**
+     * unserialize()
+     *
+     * This method should be able to take string data an create a
+     * struture in the provided $profile
+     *
+     * @param string $data
+     * @param \Zend\Tool\Project\Profile $profile
+     */
+    public function unserialize($data, Profile $profile);
+
 }
