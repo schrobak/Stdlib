@@ -13,41 +13,24 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Service_Amazon_S3
- * @subpackage UnitTests
+ * @package    Zend_Wildfire
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 /**
  * @namespace
  */
-namespace ZendTest\Service\Amazon\S3;
-
-/**
- * Test helper
- */
-
+namespace Zend\Wildfire\Channel;
 
 /**
  * @category   Zend
- * @package    Zend_Service_Amazon_S3
- * @subpackage UnitTests
+ * @package    Zend_Wildfire
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Service
- * @group      Zend_Service_Amazon
- * @group      Zend_Service_Amazon_S3
  */
-class OfflineTest extends \PHPUnit_Framework_TestCase
+interface Exception extends \Zend\Wildfire\Exception
 {
-    public function setUp()
-    {
-        $this->markTestSkipped('No offline tests for Zend\Service\Amazon\S3');
-    }
-
-    public function testNothing()
-    {
-    }
 }
+
