@@ -46,4 +46,14 @@ class FirebugTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('tottakai', $output);
     }
+
+    /**
+     * @group ZF-9176
+     */
+    public function testFactory()
+    {
+        $options = array();
+        $formatter = Firebug::factory($options);
+        $this->assertType('Zend\Log\Formatter\Firebug', $formatter);
+    }
 }
