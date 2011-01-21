@@ -13,42 +13,42 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_SignalSlot
+ * @package    Zend_EventManager
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace ZendTest\SignalSlot\TestAsset;
+namespace ZendTest\EventManager\TestAsset;
 
-use Zend\SignalSlot\SignalSlot,
-    Zend\SignalSlot\SignalManager;
+use Zend\EventManager\EventDispatcher,
+    Zend\EventManager\EventManager;
 
 /**
  * @category   Zend
- * @package    Zend_SignalSlot
+ * @package    Zend_EventManager
  * @subpackage UnitTests
- * @group      Zend_SignalSlot
+ * @group      Zend_EventManager
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class ClassWithSignals
+class ClassWithEvents
 {
-    protected $signals;
+    protected $events;
 
-    public function signals(SignalManager $signals = null)
+    public function events(EventDispatcher $events = null)
     {
-        if (null !== $signals) {
-            $this->signals = $signals;
+        if (null !== $events) {
+            $this->events = $events;
         }
-        if (null === $this->signals) {
-            $this->signals = new SignalSlot(__CLASS__);
+        if (null === $this->events) {
+            $this->events = new EventManager(__CLASS__);
         }
-        return $this->signals;
+        return $this->events;
     }
 
     public function foo()
     {
-        $this->signals()->emit(__FUNCTION__, $this, array());
+        $this->events()->emit(__FUNCTION__, $this, array());
     }
 }
