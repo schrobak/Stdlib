@@ -13,33 +13,40 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_SignalSlot
+ * @package    Zend_EventManager
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/**
- * @namespace
- */
-namespace Zend\SignalSlot;
+namespace ZendTest\EventManager\TestAsset;
 
-use Zend\Stdlib\SignalHandler;
+use Zend\EventManager\EventDispatcher,
+    Zend\EventManager\HandlerAggregate;
 
 /**
- * Interface for messengers
- *
  * @category   Zend
- * @package    Zend_SignalSlot
+ * @package    Zend_EventManager
+ * @subpackage UnitTests
+ * @group      Zend_EventManager
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface SignalSlot
+class MockAggregate implements HandlerAggregate
 {
-    public function emit($signal, $argv = null);
-    public function emitUntil($callback, $signal, $argv = null);
-    public function connect($signal, $context, $handler = null);
-    public function detach(SignalHandler $handle);
-    public function getSignals();
-    public function getHandlers($signal);
-    public function clearHandlers($signal);
+    public function connect(EventDispatcher $signals)
+    {
+        $signals->connect('foo.bar', array( $this, 'fooBar' ));
+        $signals->connect('foo.baz', array( $this, 'fooBaz' ));
+    }
+
+    public function fooBar()
+    {
+        return __METHOD__;
+    }
+
+    public function fooBaz()
+    {
+        return __METHOD__;
+    }
 }
