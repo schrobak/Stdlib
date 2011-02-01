@@ -21,8 +21,7 @@
 
 namespace ZendTest\EventManager\TestAsset;
 
-use Zend\EventManager\EventCollection,
-    Zend\EventManager\HandlerAggregate;
+use Zend\EventManager\StaticEventCollection;
 
 /**
  * @category   Zend
@@ -32,21 +31,10 @@ use Zend\EventManager\EventCollection,
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class MockAggregate implements HandlerAggregate
+class StaticEventsMock implements StaticEventCollection
 {
-    public function attach(EventCollection $events)
+    public function getHandlers($id, $event)
     {
-        $events->attach('foo.bar', array( $this, 'fooBar' ));
-        $events->attach('foo.baz', array( $this, 'fooBaz' ));
-    }
-
-    public function fooBar()
-    {
-        return __METHOD__;
-    }
-
-    public function fooBaz()
-    {
-        return __METHOD__;
+        return array();
     }
 }
