@@ -13,20 +13,29 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Loader
- * @subpackage Exception
+ * @package    Zend_Tool
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
-namespace ZendTest\File\TestAsset;
 
 /**
- * @package    Zend_Loader
- * @subpackage Exception
+ * @namespace
+ */
+namespace ZendTest\Tool\Framework\System\Provider;
+use ZendTest\Tool\Framework\Provider\AbstractTest as AbstractProviderTest;
+
+/**
+ * @category   Zend
+ * @package    Zend_Tool
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ *
+ * @group Zend_Tool
+ * @group Zend_Tool_Framework
+ * @group Zend_Tool_Framework_System_Provider
  */
-interface LocaterShouldFindThis
+class AbstractTest extends AbstractProviderTest
 {
 }
