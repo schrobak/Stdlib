@@ -10,7 +10,7 @@
 /**
  * @namespace
  */
-namespace ZendTest\Reflection\TestAsset;
+namespace ZendTest\Code\Reflection\TestAsset;
 
 /**
  * This is a sample class docblock

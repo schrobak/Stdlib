@@ -22,8 +22,8 @@
 /**
  * @namespace
  */
-namespace ZendTest\Reflection;
-use Zend\Reflection;
+namespace ZendTest\Code\Reflection;
+use Zend\Code\Reflection;
 
 
 /**
@@ -53,10 +53,10 @@ class ReflectionClassTest extends \PHPUnit_Framework_TestCase
     public function testMethodReturns()
     {
 
-        $reflectionClass = new Reflection\ReflectionClass('\ZendTest\Reflection\TestAsset\TestSampleClass2');
+        $reflectionClass = new Reflection\ReflectionClass('ZendTest\Code\Reflection\TestAsset\TestSampleClass2');
 
         $methodByName = $reflectionClass->getMethod('getProp1');
-        $this->assertEquals('Zend\Reflection\ReflectionMethod', get_class($methodByName));
+        $this->assertEquals('Zend\Code\Reflection\ReflectionMethod', get_class($methodByName));
 
         $methodsAll = $reflectionClass->getMethods();
         $this->assertEquals(3, count($methodsAll));
@@ -67,10 +67,10 @@ class ReflectionClassTest extends \PHPUnit_Framework_TestCase
 
     public function testPropertyReturns()
     {
-        $reflectionClass = new Reflection\ReflectionClass('\ZendTest\Reflection\TestAsset\TestSampleClass2');
+        $reflectionClass = new Reflection\ReflectionClass('ZendTest\Code\Reflection\TestAsset\TestSampleClass2');
 
         $propertyByName = $reflectionClass->getProperty('_prop1');
-        $this->assertEquals('Zend\Reflection\ReflectionProperty', get_class($propertyByName));
+        $this->assertEquals('Zend\Code\Reflection\ReflectionProperty', get_class($propertyByName));
 
         $propertiesAll = $reflectionClass->getProperties();
         $this->assertEquals(2, count($propertiesAll));
@@ -81,29 +81,29 @@ class ReflectionClassTest extends \PHPUnit_Framework_TestCase
 
     public function testParentReturn()
     {
-        $reflectionClass = new Reflection\ReflectionClass('\ZendTest\Reflection\TestAsset\TestSampleClass');
+        $reflectionClass = new Reflection\ReflectionClass('ZendTest\Code\Reflection\TestAsset\TestSampleClass');
 
         $parent = $reflectionClass->getParentClass();
-        $this->assertEquals('Zend\Reflection\ReflectionClass', get_class($parent));
+        $this->assertEquals('Zend\Code\Reflection\ReflectionClass', get_class($parent));
         $this->assertEquals('ArrayObject', $parent->getName());
 
     }
 
     public function testInterfaceReturn()
     {
-        $reflectionClass = new Reflection\ReflectionClass('\ZendTest\Reflection\TestAsset\TestSampleClass4');
+        $reflectionClass = new Reflection\ReflectionClass('ZendTest\Code\Reflection\TestAsset\TestSampleClass4');
 
         $interfaces = $reflectionClass->getInterfaces();
         $this->assertEquals(1, count($interfaces));
 
         $interface = array_shift($interfaces);
-        $this->assertEquals('ZendTest\Reflection\TestAsset\TestSampleClassInterface', $interface->getName());
+        $this->assertEquals('ZendTest\Code\Reflection\TestAsset\TestSampleClassInterface', $interface->getName());
 
     }
 
     public function testGetContentsReturnsContents()
     {
-        $reflectionClass = new Reflection\ReflectionClass('\ZendTest\Reflection\TestAsset\TestSampleClass2');
+        $reflectionClass = new Reflection\ReflectionClass('ZendTest\Code\Reflection\TestAsset\TestSampleClass2');
         $target = <<<EOS
 {
 
@@ -132,7 +132,7 @@ EOS;
 
     public function testStartLine()
     {
-        $reflectionClass = new Reflection\ReflectionClass('\ZendTest\Reflection\TestAsset\TestSampleClass5');
+        $reflectionClass = new Reflection\ReflectionClass('ZendTest\Code\Reflection\TestAsset\TestSampleClass5');
 
         $this->assertEquals(16, $reflectionClass->getStartLine());
         $this->assertEquals(5, $reflectionClass->getStartLine(true));
@@ -141,7 +141,7 @@ EOS;
 
     public function testGetDeclaringFileReturnsFilename()
     {
-        $reflectionClass = new Reflection\ReflectionClass('\ZendTest\Reflection\TestAsset\TestSampleClass2');
+        $reflectionClass = new Reflection\ReflectionClass('ZendTest\Code\Reflection\TestAsset\TestSampleClass2');
         $this->assertContains('TestSampleClass2.php', $reflectionClass->getDeclaringFile()->getFileName());
     }
 

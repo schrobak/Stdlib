@@ -22,8 +22,8 @@
 /**
  * @namespace
  */
-namespace ZendTest\Reflection;
-use Zend\Reflection;
+namespace ZendTest\Code\Reflection;
+use Zend\Code\Reflection;
 
 /**
  * @category   Zend
@@ -41,13 +41,13 @@ class ReflectionFunctionTest extends \PHPUnit_Framework_TestCase
         $function = new Reflection\ReflectionFunction('array_splice');
         $parameters = $function->getParameters();
         $this->assertEquals(count($parameters), 4);
-        $this->assertEquals(get_class(array_shift($parameters)), 'Zend\Reflection\ReflectionParameter');
+        $this->assertEquals(get_class(array_shift($parameters)), 'Zend\Code\Reflection\ReflectionParameter');
     }
 
     public function testFunctionDocblockReturn()
     {
         require_once __DIR__ . '/TestAsset/functions.php';
-        $function = new Reflection\ReflectionFunction('ZendTest\Reflection\TestAsset\function6');
-        $this->assertEquals(get_class($function->getDocblock()), 'Zend\Reflection\ReflectionDocblock');
+        $function = new Reflection\ReflectionFunction('ZendTest\Code\Reflection\TestAsset\function6');
+        $this->assertEquals(get_class($function->getDocblock()), 'Zend\Code\Reflection\ReflectionDocblock');
     }
 }

@@ -1,6 +1,6 @@
 <?php 
 
-namespace ZendTest\Reflection\TestAsset;
+namespace ZendTest\Code\Reflection\TestAsset;
 
 /**
  * TestSampleClass5 Docblock Short Desc

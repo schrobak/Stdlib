@@ -1,6 +1,6 @@
 <?php
 
-namespace ZendTest\Reflection\TestAsset;
+namespace ZendTest\Code\Reflection\TestAsset;
 
 use Zend\Config as ZendConfig;
 use FooBar\Foo\Bar;
@@ -10,7 +10,7 @@ class TestSampleClass8
 {
     /**
      * @param Zend\Foo\Bar $var desc
-     * @return Zend\Reflection\Docblock
+     * @return Zend\Code\Reflection\Docblock
      */
     public function doSomething()
     {

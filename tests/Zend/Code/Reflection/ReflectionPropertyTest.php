@@ -22,7 +22,7 @@
 /**
  * @namespace
  */
-namespace ZendTest\Reflection;
+namespace ZendTest\Code\Reflection;
 
 /**
  * @category   Zend
@@ -37,7 +37,7 @@ class ReflectionPropertyTest extends \PHPUnit_Framework_TestCase
 {
     public function testDeclaringClassReturn()
     {
-        $property = new \Zend\Reflection\ReflectionProperty('ZendTest\Reflection\TestAsset\TestSampleClass2', '_prop1');
-        $this->assertEquals(get_class($property->getDeclaringClass()), 'Zend\Reflection\ReflectionClass');
+        $property = new \Zend\Code\Reflection\ReflectionProperty('ZendTest\Code\Reflection\TestAsset\TestSampleClass2', '_prop1');
+        $this->assertEquals(get_class($property->getDeclaringClass()), 'Zend\Code\Reflection\ReflectionClass');
     }
 }

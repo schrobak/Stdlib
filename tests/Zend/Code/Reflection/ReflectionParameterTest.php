@@ -22,8 +22,8 @@
 /**
  * @namespace
  */
-namespace ZendTest\Reflection;
-use Zend\Reflection;
+namespace ZendTest\Code\Reflection;
+use Zend\Code\Reflection;
 
 /**
  * @category   Zend
@@ -38,20 +38,20 @@ class ReflectionParameterTest extends \PHPUnit_Framework_TestCase
 {
     public function testDeclaringClassReturn()
     {
-        $parameter = new Reflection\ReflectionParameter(array('ZendTest\Reflection\TestAsset\TestSampleClass2', 'getProp2'), 0);
-        $this->assertEquals(get_class($parameter->getDeclaringClass()), 'Zend\Reflection\ReflectionClass');
+        $parameter = new Reflection\ReflectionParameter(array('ZendTest\Code\Reflection\TestAsset\TestSampleClass2', 'getProp2'), 0);
+        $this->assertEquals(get_class($parameter->getDeclaringClass()), 'Zend\Code\Reflection\ReflectionClass');
     }
 
     public function testClassReturn_NoClassGiven_ReturnsNull()
     {
-        $parameter = new Reflection\ReflectionParameter(array('ZendTest\Reflection\TestAsset\TestSampleClass2', 'getProp2'), 'param1');
+        $parameter = new Reflection\ReflectionParameter(array('ZendTest\Code\Reflection\TestAsset\TestSampleClass2', 'getProp2'), 'param1');
         $this->assertNull($parameter->getClass());
     }
 
     public function testClassReturn()
     {
-        $parameter = new Reflection\ReflectionParameter(array('ZendTest\Reflection\TestAsset\TestSampleClass2', 'getProp2'), 'param2');
-        $this->assertEquals(get_class($parameter->getClass()), 'Zend\Reflection\ReflectionClass');
+        $parameter = new Reflection\ReflectionParameter(array('ZendTest\Code\Reflection\TestAsset\TestSampleClass2', 'getProp2'), 'param2');
+        $this->assertEquals(get_class($parameter->getClass()), 'Zend\Code\Reflection\ReflectionClass');
     }
 
     /**
@@ -59,7 +59,7 @@ class ReflectionParameterTest extends \PHPUnit_Framework_TestCase
      */
     public function testTypeReturn($param, $type)
     {
-        $parameter = new Reflection\ReflectionParameter(array('ZendTest\Reflection\TestAsset\TestSampleClass5', 'doSomething'), $param);
+        $parameter = new Reflection\ReflectionParameter(array('ZendTest\Code\Reflection\TestAsset\TestSampleClass5', 'doSomething'), $param);
         $this->assertEquals($parameter->getType(), $type);
     }
 

@@ -22,8 +22,8 @@
 /**
  * @namespace
  */
-namespace ZendTest\Reflection;
-use Zend\Reflection;
+namespace ZendTest\Code\Reflection;
+use Zend\Code\Reflection;
 
 
 /**
@@ -42,14 +42,14 @@ class ReflectionExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $extension = new Reflection\ReflectionExtension('Reflection');
         $extensionClasses = $extension->getClasses();
-        $this->assertEquals(get_class(array_shift($extensionClasses)), 'Zend\Reflection\ReflectionClass');
+        $this->assertEquals(get_class(array_shift($extensionClasses)), 'Zend\Code\Reflection\ReflectionClass');
     }
 
     public function testFunctionReturn()
     {
         $extension = new Reflection\ReflectionExtension('Spl');
         $extensionFunctions = $extension->getFunctions();
-        $this->assertEquals(get_class(array_shift($extensionFunctions)), 'Zend\Reflection\ReflectionFunction');
+        $this->assertEquals(get_class(array_shift($extensionFunctions)), 'Zend\Code\Reflection\ReflectionFunction');
     }
 }
 

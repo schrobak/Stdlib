@@ -22,8 +22,8 @@
 /**
  * @namespace
  */
-namespace ZendTest\Reflection;
-use Zend\Reflection;
+namespace ZendTest\Code\Reflection;
+use Zend\Code\Reflection;
 
 /**
  * @category   Zend
@@ -38,13 +38,13 @@ class ReflectionDocblockTest extends \PHPUnit_Framework_TestCase
 {
     public function testDocblockShortDescription()
     {
-        $classReflection = new Reflection\ReflectionClass('\ZendTest\Reflection\TestAsset\TestSampleClass5');
+        $classReflection = new Reflection\ReflectionClass('ZendTest\Code\Reflection\TestAsset\TestSampleClass5');
         $this->assertEquals($classReflection->getDocblock()->getShortDescription(), 'TestSampleClass5 Docblock Short Desc');
     }
 
     public function testDocblockLongDescription()
     {
-        $classReflection = new Reflection\ReflectionClass('\ZendTest\Reflection\TestAsset\TestSampleClass5');
+        $classReflection = new Reflection\ReflectionClass('ZendTest\Code\Reflection\TestAsset\TestSampleClass5');
         $expectedOutput =<<<EOS
 This is a long description for
 the docblock of this class, it
@@ -59,7 +59,7 @@ EOS;
 
     public function testDocblockTags()
     {
-        $classReflection = new Reflection\ReflectionClass('\ZendTest\Reflection\TestAsset\TestSampleClass5');
+        $classReflection = new Reflection\ReflectionClass('ZendTest\Code\Reflection\TestAsset\TestSampleClass5');
 
         $this->assertEquals(count($classReflection->getDocblock()->getTags()), 1);
         $this->assertEquals(count($classReflection->getDocblock()->getTags('author')), 1);
@@ -69,13 +69,13 @@ EOS;
         $this->assertEquals($classReflection->getMethod('doSomething')->getDocblock()->hasTag('return'), true);
 
         $returnTag = $classReflection->getMethod('doSomething')->getDocblock()->getTag('return');
-        $this->assertEquals(get_class($returnTag), 'Zend\Reflection\ReflectionDocblockTag');
+        $this->assertEquals(get_class($returnTag), 'Zend\Code\Reflection\ReflectionDocblockTag');
         $this->assertEquals($returnTag->getType(), 'mixed');
     }
 
     public function testDocblockLines()
     {
-        $classReflection = new Reflection\ReflectionClass('\ZendTest\Reflection\TestAsset\TestSampleClass5');
+        $classReflection = new Reflection\ReflectionClass('ZendTest\Code\Reflection\TestAsset\TestSampleClass5');
 
         $classDocblock = $classReflection->getDocblock();
 
@@ -86,7 +86,7 @@ EOS;
 
     public function testDocblockContents()
     {
-        $classReflection = new Reflection\ReflectionClass('\ZendTest\Reflection\TestAsset\TestSampleClass5');
+        $classReflection = new Reflection\ReflectionClass('ZendTest\Code\Reflection\TestAsset\TestSampleClass5');
 
         $classDocblock = $classReflection->getDocblock();
 
@@ -109,7 +109,7 @@ EOS;
 
     public function testToString()
     {
-        $classReflection = new Reflection\ReflectionClass('\ZendTest\Reflection\TestAsset\TestSampleClass5');
+        $classReflection = new Reflection\ReflectionClass('ZendTest\Code\Reflection\TestAsset\TestSampleClass5');
 
         $classDocblock = $classReflection->getDocblock();
 

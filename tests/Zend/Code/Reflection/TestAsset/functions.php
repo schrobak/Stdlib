@@ -22,7 +22,7 @@
 /**
  * @namespace
  */
-namespace ZendTest\Reflection\TestAsset;
+namespace ZendTest\Code\Reflection\TestAsset;
 
 function function1() {
     return 'foo';

@@ -1,6 +1,6 @@
 <?php 
 
-namespace ZendTest\Reflection\TestAsset;
+namespace ZendTest\Code\Reflection\TestAsset;
 
 class TestSampleClass2 implements \IteratorAggregate
 {

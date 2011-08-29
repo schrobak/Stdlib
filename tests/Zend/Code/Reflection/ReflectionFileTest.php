@@ -22,8 +22,8 @@
 /**
  * @namespace
  */
-namespace ZendTest\Reflection;
-use Zend\Reflection;
+namespace ZendTest\Code\Reflection;
+use Zend\Code\Reflection;
 
 /**
  * @category   Zend
@@ -40,13 +40,13 @@ class ReflectionFileTest extends \PHPUnit_Framework_TestCase
     {
         require_once 'Zend/Version.php';
         $reflectionFile = new Reflection\ReflectionFile('Zend/Version.php');
-        $this->assertEquals(get_class($reflectionFile), 'Zend\Reflection\ReflectionFile');
+        $this->assertEquals(get_class($reflectionFile), 'Zend\Code\Reflection\ReflectionFile');
     }
 
     public function testFileConstructorThrowsExceptionOnNonExistentFile()
     {
         $nonExistentFile = 'Non/Existent/File.php';
-        $this->setExpectedException('Zend\Reflection\Exception\RuntimeException', 'File Non/Existent/File.php must be required before it can be reflected');
+        $this->setExpectedException('Zend\Code\Reflection\Exception\RuntimeException', 'File Non/Existent/File.php must be required before it can be reflected');
         $reflectionFile = new Reflection\ReflectionFile($nonExistentFile);
     }
 
@@ -55,9 +55,9 @@ class ReflectionFileTest extends \PHPUnit_Framework_TestCase
         $fileToReflect = __DIR__ . '/TestAsset/TestSampleClass.php';
         include_once $fileToReflect;
         $reflectionFile = new Reflection\ReflectionFile($fileToReflect);
-        $this->assertEquals(get_class($reflectionFile), 'Zend\Reflection\ReflectionFile');
+        $this->assertEquals(get_class($reflectionFile), 'Zend\Code\Reflection\ReflectionFile');
         $this->assertEquals(count($reflectionFile->getClasses()), 1);
-        //$this->assertEquals(get_class($reflectionFile->getClass('ZendTest\Reflection\TestAsset\TestSampleClass')), 'Zend\Reflection\ReflectionClass');
+        //$this->assertEquals(get_class($reflectionFile->getClass('ZendTest\Code\Reflection\TestAsset\TestSampleClass')), 'Zend\Code\Reflection\ReflectionClass');
     }
 
     public function testFileGetClassReturnsFirstClassWithNoOptions()
@@ -65,7 +65,7 @@ class ReflectionFileTest extends \PHPUnit_Framework_TestCase
         $fileToReflect = __DIR__ . '/TestAsset/TestSampleClass.php';
         include_once $fileToReflect;
         $reflectionFile = new Reflection\ReflectionFile($fileToReflect);
-        $this->assertEquals('ZendTest\Reflection\TestAsset\TestSampleClass', $reflectionFile->getClass()->getName());
+        $this->assertEquals('ZendTest\Code\Reflection\TestAsset\TestSampleClass', $reflectionFile->getClass()->getName());
     }
 
 
@@ -76,7 +76,7 @@ class ReflectionFileTest extends \PHPUnit_Framework_TestCase
         $reflectionFile = new Reflection\ReflectionFile($fileToReflect);
         $nonExistentClass = 'Some_Non_Existent_Class';
         
-        $this->setExpectedException('Zend\Reflection\Exception\InvalidArgumentException', 'Class by name Some_Non_Existent_Class not found');
+        $this->setExpectedException('Zend\Code\Reflection\Exception\InvalidArgumentException', 'Class by name Some_Non_Existent_Class not found');
         $reflectionFile->getClass($nonExistentClass);
     }
 
@@ -112,7 +112,7 @@ class ReflectionFileTest extends \PHPUnit_Framework_TestCase
         $fileToReflect = __DIR__ . '/TestAsset/TestSampleClass.php';
         include_once $fileToReflect;
         $reflectionFile = new Reflection\ReflectionFile($fileToReflect);
-        $this->assertTrue($reflectionFile->getDocblock() instanceof \Zend\Reflection\ReflectionDocblock);
+        $this->assertTrue($reflectionFile->getDocblock() instanceof \Zend\Code\Reflection\ReflectionDocblock);
     }
 
     public function testFileGetFunctionsReturnsFunctions()
@@ -122,7 +122,7 @@ class ReflectionFileTest extends \PHPUnit_Framework_TestCase
         include_once $fileToRequire;
         $reflectionFile = new Reflection\ReflectionFile($fileToRequire);
         $funcs = $reflectionFile->getFunctions();
-        $this->assertTrue(current($funcs) instanceof \Zend\Reflection\ReflectionFunction);
+        $this->assertTrue(current($funcs) instanceof \Zend\Code\Reflection\ReflectionFunction);
     }
 
     public function testFileCanReflectFileWithInterface()
@@ -131,7 +131,7 @@ class ReflectionFileTest extends \PHPUnit_Framework_TestCase
         include_once $fileToReflect;
         $reflectionFile = new Reflection\ReflectionFile($fileToReflect);
         $class = $reflectionFile->getClass();
-        $this->assertEquals('ZendTest\Reflection\TestAsset\TestSampleInterface', $class->getName());
+        $this->assertEquals('ZendTest\Code\Reflection\TestAsset\TestSampleInterface', $class->getName());
         $this->assertTrue($class->isInterface());
     }
     
