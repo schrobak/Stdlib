@@ -22,9 +22,9 @@
 /**
  * @namespace
  */
-namespace ZendTest\CodeGenerator\Php;
+namespace ZendTest\Code\Generator;
 
-use Zend\CodeGenerator\Php;
+use Zend\Code\Generator;
 
 /**
  * @category   Zend
@@ -40,7 +40,7 @@ class PhpParameterTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var \Zend\CodeGenerator\Php\PhpParameter
+     * @var \Zend\Code\Generator\PhpParameter
      */
     protected $_parameter = null;
 
@@ -181,7 +181,7 @@ class PhpParameterTest extends \PHPUnit_Framework_TestCase
      */
     private function _getFirstReflectionParameter($method)
     {
-        $reflClass = new \Zend\Reflection\ReflectionClass('\ZendTest\CodeGenerator\Php\TestAsset\ParameterClass');
+        $reflClass = new \Zend\Reflection\ReflectionClass('\ZendTest\Code\Generator\TestAsset\ParameterClass');
         $method = $reflClass->getMethod($method);
 
         $params = $method->getParameters();

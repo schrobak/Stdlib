@@ -22,8 +22,8 @@
 /**
  * @namespace
  */
-namespace ZendTest\CodeGenerator\Php;
-use Zend\CodeGenerator\Php;
+namespace ZendTest\Code\Generator;
+use Zend\Code\Generator;
 
 /**
  * @category   Zend
@@ -57,7 +57,7 @@ class PhpMethodTest extends \PHPUnit_Framework_TestCase
     public function testMethodConstructor()
     {
         $codeGenMethod = new Php\PhpMethod();
-        $this->isInstanceOf($codeGenMethod, '\Zend\CodeGenerator\Php\PhpMethod');
+        $this->isInstanceOf($codeGenMethod, '\Zend\Code\Generator\PhpMethod');
     }
 
     public function testMethodParameterAccessors()
@@ -68,7 +68,7 @@ class PhpMethodTest extends \PHPUnit_Framework_TestCase
             ));
         $params = $codeGen->getParameters();
         $param = array_shift($params);
-        $this->assertTrue($param instanceof \Zend\CodeGenerator\Php\PhpParameter, 'Failed because $param was not instance of Zend_CodeGenerator_Php_Property');
+        $this->assertTrue($param instanceof \Zend\Code\Generator\PhpParameter, 'Failed because $param was not instance of Zend_CodeGenerator_Php_Property');
     }
 
     public function testMethodBodyGetterAndSetter()
@@ -79,7 +79,7 @@ class PhpMethodTest extends \PHPUnit_Framework_TestCase
 
     public function testDocblockGetterAndSetter()
     {
-        $d = new \Zend\CodeGenerator\Php\PhpDocblock();
+        $d = new \Zend\Code\Generator\PhpDocblock();
 
         $this->_method->setDocblock($d);
         $this->assertTrue($d === $this->_method->getDocblock());
@@ -88,7 +88,7 @@ class PhpMethodTest extends \PHPUnit_Framework_TestCase
 
     public function testMethodFromReflection()
     {
-        $ref = new \Zend\Reflection\ReflectionMethod('\ZendTest\CodeGenerator\Php\TestAsset\TestSampleSingleClass', 'someMethod');
+        $ref = new \Zend\Reflection\ReflectionMethod('\ZendTest\Code\Generator\TestAsset\TestSampleSingleClass', 'someMethod');
 
         $codeGenMethod = Php\PhpMethod::fromReflection($ref);
         $target = <<<EOS

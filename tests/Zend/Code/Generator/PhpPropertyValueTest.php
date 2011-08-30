@@ -22,8 +22,8 @@
 /**
  * @namespace
  */
-namespace ZendTest\CodeGenerator\Php\Property;
-use Zend\CodeGenerator\Php;
+namespace ZendTest\Code\Generator\Property;
+use Zend\Code\Generator;
 
 /**
  * @category   Zend
@@ -41,7 +41,7 @@ class PhpPropertyValueTest extends \PHPUnit_Framework_TestCase
     public function testPropertyDefaultValueConstructor()
     {
         $propDefaultValue = new Php\PhpPropertyValue();
-        $this->isInstanceOf($propDefaultValue, 'Zend\CodeGenerator\Php\Property\DefaultValue');
+        $this->isInstanceOf($propDefaultValue, 'Zend\Code\Generator\Property\DefaultValue');
     }
 
     public function testPropertyDefaultValueIsSettable()

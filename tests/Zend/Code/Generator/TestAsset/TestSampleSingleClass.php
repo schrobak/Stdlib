@@ -8,7 +8,7 @@
 /**
  * @namespace
  */
-namespace ZendTest\CodeGenerator\Php\TestAsset;
+namespace ZendTest\Code\Generator\TestAsset;
 
 /**
  * class docblock

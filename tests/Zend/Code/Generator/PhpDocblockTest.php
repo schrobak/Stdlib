@@ -22,7 +22,7 @@
 /**
  * @namespace
  */
-namespace ZendTest\CodeGenerator\Php;
+namespace ZendTest\Code\Generator;
 
 /**
  * @see Zend_CodeGenerator_Php_Class
@@ -48,7 +48,7 @@ class DocblockTest extends \PHPUnit_Framework_TestCase
 
     public function setup()
     {
-        $this->_docblock = new \Zend\CodeGenerator\Php\PhpDocblock();
+        $this->_docblock = new \Zend\Code\Generator\PhpDocblock();
     }
 
     public function teardown()
@@ -72,8 +72,8 @@ class DocblockTest extends \PHPUnit_Framework_TestCase
     {
         $this->markTestSkipped('Must refactor Docblock like Reflecion tag first.');
 //        $this->_docblock->setTag(array('name' => 'blah'));
-//        $this->_docblock->setTag(new \Zend\CodeGenerator\Php\Docblock\Tag\Param(array('datatype' => 'string')));
-//        $this->_docblock->setTag(new \Zend\CodeGenerator\Php\Docblock\Tag\Return(array('datatype' => 'int')));
+//        $this->_docblock->setTag(new \Zend\Code\Generator\Docblock\Tag\Param(array('datatype' => 'string')));
+//        $this->_docblock->setTag(new \Zend\Code\Generator\Docblock\Tag\Return(array('datatype' => 'int')));
 //        $this->assertEquals(3, count($this->_docblock->getTags()));
 //
 //        $target = <<<EOS

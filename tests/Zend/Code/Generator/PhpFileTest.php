@@ -22,8 +22,8 @@
 /**
  * @namespace
  */
-namespace ZendTest\CodeGenerator\Php;
-use Zend\CodeGenerator\Php;
+namespace ZendTest\Code\Generator;
+use Zend\Code\Generator;
 use Zend\Code\Reflection;
 
 /**
@@ -43,7 +43,7 @@ class PhpFileTest extends \PHPUnit_Framework_TestCase
     public function testConstruction()
     {
         $file = new Php\PhpFile();
-        $this->assertEquals(get_class($file), 'Zend\CodeGenerator\Php\PhpFile');
+        $this->assertEquals(get_class($file), 'Zend\Code\Generator\PhpFile');
     }
 
     public function testSourceContentGetterAndSetter()
@@ -109,7 +109,7 @@ EOS;
 
         unlink($tempFile);
 
-        $this->assertEquals(get_class($codeGenFileFromDisk), 'Zend\CodeGenerator\Php\PhpFile');
+        $this->assertEquals(get_class($codeGenFileFromDisk), 'Zend\Code\Generator\PhpFile');
         $this->assertEquals(count($codeGenFileFromDisk->getClasses()), 1);
 
     }
@@ -136,7 +136,7 @@ EOS;
 /**
  * @namespace
  */
-namespace ZendTest\CodeGenerator\Php\TestAsset;
+namespace ZendTest\Code\Generator\TestAsset;
 
 /**
  * class docblock

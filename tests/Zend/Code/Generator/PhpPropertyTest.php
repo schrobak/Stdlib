@@ -22,8 +22,8 @@
 /**
  * @namespace
  */
-namespace ZendTest\CodeGenerator\Php;
-use Zend\CodeGenerator\Php;
+namespace ZendTest\Code\Generator;
+use Zend\Code\Generator;
 
 /**
  * @category   Zend
@@ -41,7 +41,7 @@ class PhpPropertyTest extends \PHPUnit_Framework_TestCase
     public function testPropertyConstructor()
     {
         $codeGenProperty = new Php\PhpProperty();
-        $this->isInstanceOf($codeGenProperty, '\Zend\CodeGenerator\Php\PhpProperty');
+        $this->isInstanceOf($codeGenProperty, '\Zend\Code\Generator\PhpProperty');
     }
 
     public function testPropertyReturnsSimpleValue()
@@ -100,7 +100,7 @@ EOS;
      */
     public function testPropertyWillLoadFromReflection()
     {
-        $reflectionClass = new \Zend\Reflection\ReflectionClass('\ZendTest\CodeGenerator\Php\TestAsset\TestClassWithManyProperties');
+        $reflectionClass = new \Zend\Reflection\ReflectionClass('\ZendTest\Code\Generator\TestAsset\TestClassWithManyProperties');
 
         // test property 1
         $reflProp = $reflectionClass->getProperty('_bazProperty');
@@ -118,7 +118,7 @@ EOS;
         $cgProp = Php\PhpProperty::fromReflection($reflProp);
 
         $this->assertEquals('_bazStaticProperty', $cgProp->getName());
-        $this->assertEquals(\ZendTest\CodeGenerator\Php\TestAsset\TestClassWithManyProperties::FOO, $cgProp->getDefaultValue()->getValue());
+        $this->assertEquals(\ZendTest\Code\Generator\TestAsset\TestClassWithManyProperties::FOO, $cgProp->getDefaultValue()->getValue());
         $this->assertTrue($cgProp->isStatic());
         $this->assertEquals('private', $cgProp->getVisibility());
     }
@@ -167,7 +167,7 @@ EOS;
         ));
 
         $this->setExpectedException(
-            'Zend\CodeGenerator\Php\Exception\RuntimeException',
+            'Zend\Code\Generator\Exception\RuntimeException',
             'Type \'stdClass\' is unknown or cannot be used as property default value'
             );
 

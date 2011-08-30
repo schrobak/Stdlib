@@ -22,7 +22,7 @@
 /**
  * @namespace
  */
-namespace ZendTest\CodeGenerator\Php;
+namespace ZendTest\Code\Generator;
 
 /**
  * @see Zend_CodeGenerator_Php_Class
@@ -48,7 +48,7 @@ class TagTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->_tag = new \Zend\CodeGenerator\Php\PhpDocblockTag();
+        $this->_tag = new \Zend\Code\Generator\PhpDocblockTag();
     }
 
     public function tearDown()

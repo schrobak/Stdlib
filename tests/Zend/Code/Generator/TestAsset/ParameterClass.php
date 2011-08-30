@@ -1,6 +1,6 @@
 <?php
 
-namespace ZendTest\CodeGenerator\Php\TestAsset;
+namespace ZendTest\Code\Generator\TestAsset;
 
 class ParameterClass
 {

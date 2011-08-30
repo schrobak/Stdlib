@@ -22,8 +22,8 @@
 /**
  * @namespace
  */
-namespace ZendTest\CodeGenerator\Php;
-use Zend\CodeGenerator\Php;
+namespace ZendTest\Code\Generator;
+use Zend\Code\Generator;
 use Zend\Code\Reflection;
 
 /**
@@ -42,7 +42,7 @@ class PhpClassTest extends \PHPUnit_Framework_TestCase
     public function testConstruction()
     {
         $class = new Php\PhpClass();
-        $this->isInstanceOf($class, '\Zend\CodeGenerator\Php\PhpClass');
+        $this->isInstanceOf($class, '\Zend\Code\Generator\PhpClass');
     }
 
     public function testNameAccessors()
@@ -108,7 +108,7 @@ class PhpClassTest extends \PHPUnit_Framework_TestCase
         $codeGenClass->setProperty(array('name' => 'prop3'));
 
         $this->setExpectedException(
-            'Zend\CodeGenerator\Php\Exception\InvalidArgumentException',
+            'Zend\Code\Generator\Exception\InvalidArgumentException',
             'A property by name prop3 already exists in this class'
             );
         $codeGenClass->setProperty(array('name' => 'prop3'));
@@ -119,7 +119,7 @@ class PhpClassTest extends \PHPUnit_Framework_TestCase
         $codeGenClass = new Php\PhpClass();
 
         $this->setExpectedException(
-            'Zend\CodeGenerator\Php\Exception\InvalidArgumentException',
+            'Zend\Code\Generator\Exception\InvalidArgumentException',
             'setProperty() expects either an array of property options or an instance of Zend_CodeGenerator_Php_Property'
             );
         $codeGenClass->setProperty("propertyName");
@@ -135,10 +135,10 @@ class PhpClassTest extends \PHPUnit_Framework_TestCase
 
         $methods = $codeGenClass->getMethods();
         $this->assertEquals(count($methods), 2);
-        $this->isInstanceOf(current($methods), '\Zend\CodeGenerator\Php\PhpMethod');
+        $this->isInstanceOf(current($methods), '\Zend\Code\Generator\PhpMethod');
 
         $method = $codeGenClass->getMethod('methodOne');
-        $this->isInstanceOf($method, '\Zend\CodeGenerator\Php\PhpMethod');
+        $this->isInstanceOf($method, '\Zend\Code\Generator\PhpMethod');
         $this->assertEquals($method->getName(), 'methodOne');
 
         // add a new property
@@ -149,8 +149,8 @@ class PhpClassTest extends \PHPUnit_Framework_TestCase
     public function testSetMethodNoMethodOrArrayThrowsException()
     {
         $this->setExpectedException(
-            'Zend\CodeGenerator\Php\Exception',
-            'setMethod() expects either an array of method options or an instance of Zend\CodeGenerator\Php\Method'
+            'Zend\Code\Generator\Exception',
+            'setMethod() expects either an array of method options or an instance of Zend\Code\Generator\Method'
             );
 
         $codeGenClass = new Php\PhpClass();
@@ -167,7 +167,7 @@ class PhpClassTest extends \PHPUnit_Framework_TestCase
         $codeGenClass = new Php\PhpClass();
         $codeGenClass->setMethod($methodA);
 
-        $this->setExpectedException('Zend\CodeGenerator\Php\Exception\InvalidArgumentException', 'A method by name foo already exists in this class.');
+        $this->setExpectedException('Zend\Code\Generator\Exception\InvalidArgumentException', 'A method by name foo already exists in this class.');
 
         $codeGenClass->setMethod($methodB);
     }
@@ -242,7 +242,7 @@ EOS;
      */
     public function testClassFromReflectionThatImplementsInterfaces()
     {
-        $reflClass = new Reflection\ReflectionClass('ZendTest\CodeGenerator\Php\TestAsset\ClassWithInterface');
+        $reflClass = new Reflection\ReflectionClass('ZendTest\Code\Generator\TestAsset\ClassWithInterface');
 
         $codeGen = Php\PhpClass::fromReflection($reflClass);
         $codeGen->setSourceDirty(true);
@@ -250,8 +250,8 @@ EOS;
         $code = $codeGen->generate();
 
         $expectedClassDef = 'class ClassWithInterface'
-                          . ' implements ZendTest\CodeGenerator\Php\TestAsset\OneInterface'
-                          . ', ZendTest\CodeGenerator\Php\TestAsset\TwoInterface';
+                          . ' implements ZendTest\Code\Generator\TestAsset\OneInterface'
+                          . ', ZendTest\Code\Generator\TestAsset\TwoInterface';
         $this->assertContains($expectedClassDef, $code);
     }
 
@@ -260,7 +260,7 @@ EOS;
      */
     public function testClassFromReflectionDiscardParentImplementedInterfaces()
     {
-        $reflClass = new Reflection\ReflectionClass('\ZendTest\CodeGenerator\Php\TestAsset\NewClassWithInterface');
+        $reflClass = new Reflection\ReflectionClass('\ZendTest\Code\Generator\TestAsset\NewClassWithInterface');
 
         $codeGen = Php\PhpClass::fromReflection($reflClass);
         $codeGen->setSourceDirty(true);
@@ -268,8 +268,8 @@ EOS;
         $code = $codeGen->generate();
 
         $expectedClassDef = 'class NewClassWithInterface'
-                          . ' extends ZendTest\CodeGenerator\Php\TestAsset\ClassWithInterface'
-                          . ' implements ZendTest\CodeGenerator\Php\TestAsset\ThreeInterface';
+                          . ' extends ZendTest\Code\Generator\TestAsset\ClassWithInterface'
+                          . ' implements ZendTest\Code\Generator\TestAsset\ThreeInterface';
         $this->assertContains($expectedClassDef, $code);
     }
 
@@ -318,13 +318,13 @@ CODE;
      */
     public function testCodeGenerationShouldTakeIntoAccountNamespacesFromReflection()
     {
-        $reflClass = new Reflection\ReflectionClass('ZendTest\CodeGenerator\Php\TestAsset\ClassWithNamespace');
+        $reflClass = new Reflection\ReflectionClass('ZendTest\Code\Generator\TestAsset\ClassWithNamespace');
         $codeGen = Php\PhpClass::fromReflection($reflClass);
-        $this->assertEquals('ZendTest\CodeGenerator\Php\TestAsset', $codeGen->getNamespaceName());
+        $this->assertEquals('ZendTest\Code\Generator\TestAsset', $codeGen->getNamespaceName());
         $this->assertEquals('ClassWithNamespace', $codeGen->getName());
         $expected = <<<CODE
 /** @namespace */
-namespace ZendTest\CodeGenerator\Php\\TestAsset;
+namespace ZendTest\Code\Generator\\TestAsset;
 
 class ClassWithNamespace
 {
