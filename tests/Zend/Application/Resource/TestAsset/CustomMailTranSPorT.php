@@ -21,8 +21,7 @@
 
 namespace ZendTest\Application\Resource\TestAsset;
 
-use Zend\Application\Bootstrap,
-    Zend\View\PhpRenderer;
+use Zend\Mail\AbstractTransport;
 
 /**
  * @category   Zend
@@ -31,12 +30,10 @@ use Zend\Application\Bootstrap,
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class ZfAppBootstrapCustomView extends Bootstrap
+class CustomMailTranSPorT extends AbstractTransport
 {
-    public function _initView()
+    public function _sendMail()
     {
-        $view = new PhpRenderer();
-        $view->setInMethodByTest = true;
-        return $view;
-    }
+		// We dont want to do anything here, do we?
+	}
 }
