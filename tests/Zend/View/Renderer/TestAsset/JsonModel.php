@@ -13,23 +13,29 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Layout
+ * @package    Zend_View
+ * @subpackage UnitTest
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/**
- * @namespace
- */
-namespace Zend\Layout;
+namespace ZendTest\View\Renderer\TestAsset;
+
+use JsonSerializable;
 
 /**
- * @uses       \Exception
  * @category   Zend
- * @package    Zend_Layout
+ * @package    Zend_View
+ * @subpackage UnitTest
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Exception
-{}
+class JsonModel implements JsonSerializable
+{
+    public $value = false;
 
+    public function jsonSerialize()
+    {
+        return $value;
+    }
+}

@@ -13,27 +13,44 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Layout
- * @subpackage UnitTests
+ * @package    Zend_View
+ * @subpackage UnitTest
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/**
- * @namespace
- */
-namespace ZendTest\Layout\TestAsset;
+namespace ZendTest\View\TestAsset\Renderer;
+
+use Zend\View\Model,
+    Zend\View\Renderer,
+    Zend\View\Resolver;
 
 /**
  * @category   Zend
- * @package    Zend_Layout
- * @subpackage UnitTests
+ * @package    Zend_View
+ * @subpackage UnitTest
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class MinimalCustomView implements \Zend\View\Renderer
+class VarExportRenderer implements Renderer
 {
-    public function getEngine() {}
+    public function getEngine()
+    {
+        return 'var_export';
+    }
 
-    public function render($name) {}
+    public function setResolver(Resolver $resolver)
+    {
+        // Deliberately empty
+    }
+
+    public function render($nameOrModel, $values = null)
+    {
+        if (!$nameOrModel instanceof Model) {
+            return var_export($nameOrModel, true);
+        }
+
+        $values = $nameOrModel->getVariables();
+        return var_export($values, true);
+    }
 }

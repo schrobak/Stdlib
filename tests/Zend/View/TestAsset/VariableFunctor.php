@@ -1,4 +1,3 @@
-Testing layouts with custom inflection:
 <?php
 /**
  * Zend Framework
@@ -14,11 +13,32 @@ Testing layouts with custom inflection:
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Layout
- * @subpackage UnitTests
+ * @package    Zend_View
+ * @subpackage UnitTest
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-echo $this->placeholder('Zend\Layout\Layout')->message
-?>
+namespace ZendTest\View\TestAsset;
+
+/**
+ * @category   Zend
+ * @package    Zend_View
+ * @subpackage UnitTest
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ */
+class VariableFunctor
+{
+    public $value;
+
+    public function __construct($value = null)
+    {
+        $this->value = $value;
+    }
+
+    public function __invoke()
+    {
+        return $this->value;
+    }
+}
