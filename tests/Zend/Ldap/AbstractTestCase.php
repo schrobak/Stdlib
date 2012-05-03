@@ -13,36 +13,47 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Acl
+ * @package    Zend_Ldap
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\Acl;
+namespace ZendTest\Ldap;
+
+use Zend\Ldap\Node;
 
 /**
- * @uses       Zend\Acl\Acl
- * @uses       Zend\Acl\Resource
- * @uses       Zend\Acl\Role
  * @category   Zend
- * @package    Zend_Acl
+ * @package    Zend_Ldap
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @group      Zend_Ldap
  */
-interface Assertion
+abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Returns true if and only if the assertion conditions are met
-     *
-     * This method is passed the ACL, Role, Resource, and privilege to which the authorization query applies. If the
-     * $role, $resource, or $privilege parameters are null, it means that the query applies to all Roles, Resources, or
-     * privileges, respectively.
-     *
-     * @param  Acl      $acl
-     * @param  Role     $role
-     * @param  Resource $resource
-     * @param  string   $privilege
-     * @return boolean
+     * @return array
      */
-    public function assert(Acl $acl, Role $role = null, Resource $resource = null, $privilege = null);
+    protected function createTestArrayData()
+    {
+        $data = array(
+            'dn'          => 'cn=name,dc=example,dc=org',
+            'cn'          => array('name'),
+            'host'        => array('a', 'b', 'c'),
+            'empty'       => array(),
+            'boolean'     => array('TRUE', 'FALSE'),
+            'objectclass' => array('account', 'top'),
+        );
+        return $data;
+    }
+
+    /**
+     * @return Node
+     */
+    protected function createTestNode()
+    {
+        return Node::fromArray($this->createTestArrayData(), true);
+    }
 }

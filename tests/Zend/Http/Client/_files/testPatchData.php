@@ -13,25 +13,15 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Acl
+ * @package    Zend_Http
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\Acl;
-
-/**
- * @category   Zend
- * @package    Zend_Acl
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */
-interface Role
-{
-    /**
-     * Returns the string identifier of the Role
-     *
-     * @return string
-     */
-    public function getRoleId();
+$putdata = fopen("php://input", "r");
+while ($data = fread($putdata, 1024)) {
+    echo $data;
 }
+
+fclose($putdata);
