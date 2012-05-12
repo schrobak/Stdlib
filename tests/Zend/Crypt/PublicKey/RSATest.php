@@ -20,9 +20,8 @@
  */
 
 namespace ZendTest\Crypt;
-
-use Zend\Crypt\Rsa as RSA,
-    Zend\Crypt;
+use Zend\Crypt\PublicKey\Rsa as RSA,
+    Zend\Crypt\PublicKey\Exception;
 
 /**
  * @category   Zend
@@ -52,8 +51,8 @@ class RSATest extends \PHPUnit_Framework_TestCase
         $this->openSslConf = $openSslConf;
 
         try {
-            $math = new \Zend\Crypt\Rsa();
-        } catch (\Zend\Crypt\Rsa\Exception\RuntimeException $e) {
+            $math = new Rsa();
+        } catch (Exception\RuntimeException $e) {
             if (strpos($e->getMessage(), 'requires openssl extention') !== false) {
                 $this->markTestSkipped($e->getMessage());
             } else {
@@ -103,9 +102,9 @@ l9Nwj3KnPKFdqzJchujP2TLNwSYoQnxgyoMxdho=
 
 CERT;
 
-        $this->_testPemPath = __DIR__ . '/_files/test.pem';
+        $this->_testPemPath = __DIR__ . '/../_files/test.pem';
 
-        $this->_testCertificatePath = __DIR__ . '/_files/test.cert';
+        $this->_testCertificatePath = __DIR__ . '/../_files/test.cert';
     }
 
     public function testConstructorSetsPemString()
@@ -153,13 +152,13 @@ CERT;
     public function testSetPemStringParsesPemForPrivateKey()
     {
         $rsa = new RSA(array('pemString'=>$this->_testPemString));
-        $this->assertInstanceOf('Zend\\Crypt\\RSA\\PrivateKey', $rsa->getPrivateKey());
+        $this->assertInstanceOf('Zend\\Crypt\\PublicKey\\RSA\\PrivateKey', $rsa->getPrivateKey());
     }
 
     public function testSetPemStringParsesPemForPublicKey()
     {
         $rsa = new RSA(array('pemString'=>$this->_testPemString));
-        $this->assertInstanceOf('Zend\\Crypt\\RSA\\PublicKey', $rsa->getPublicKey());
+        $this->assertInstanceOf('Zend\\Crypt\\PublicKey\\RSA\\PublicKey', $rsa->getPublicKey());
     }
 
     public function testSetCertificateStringParsesCertificateForNullPrivateKey()
@@ -171,7 +170,7 @@ CERT;
     public function testSetCertificateStringParsesCertificateForPublicKey()
     {
         $rsa = new RSA(array('certificateString'=>$this->_testCertificateString));
-        $this->assertInstanceOf('Zend\\Crypt\\RSA\\PublicKey', $rsa->getPublicKey());
+        $this->assertInstanceOf('Zend\\Crypt\\PublicKey\\RSA\\PublicKey', $rsa->getPublicKey());
     }
 
     public function testSignGeneratesExpectedBinarySignature()
@@ -301,7 +300,7 @@ CERT;
             'config'           => $this->openSslConf,
             'private_key_bits' => 512,
         ));
-        $this->assertInstanceOf('Zend\\Crypt\\RSA\\PrivateKey', $keys->privateKey);
+        $this->assertInstanceOf('Zend\\Crypt\\PublicKey\\RSA\\PrivateKey', $keys->privateKey);
     }
 
     public function testKeyGenerationCreatesPublicKeyInArrayObject()
@@ -314,7 +313,7 @@ CERT;
             'config'         => $this->openSslConf,
             'privateKeyBits' => 512,
         ));
-        $this->assertInstanceOf('Zend\\Crypt\\RSA\\PublicKey', $keys->publicKey);
+        $this->assertInstanceOf('Zend\\Crypt\\PublicKey\\RSA\\PublicKey', $keys->publicKey);
     }
 
     public function testKeyGenerationCreatesPassphrasedPrivateKey()
@@ -335,7 +334,7 @@ CERT;
                 'pemString'  => $keys->privateKey->toString()
             ));
             $this->fail('Expected exception not thrown');
-        } catch (Crypt\Exception\RuntimeException $e) {
+        } catch (Crypt\Exception $e) {
         }
     }
 
@@ -356,7 +355,7 @@ CERT;
                 'passPhrase' => '0987654321',
                 'pemString'  => $keys->privateKey->toString()
             ));
-        } catch (Crypt\Exception\RuntimeException $e) {
+        } catch (Crypt\Exception $e) {
             $this->fail('Passphrase loading failed of a private key');
         }
     }
@@ -364,9 +363,11 @@ CERT;
     /**
      * @group ZF-8846
      */
+    /*
     public function testLoadsPublicKeyFromPEMWithoutPrivateKeyAndThrowsNoException()
     {
         $rsa = new RSA;
         $rsa->setPemString($this->_testPemStringPublic);
     }
+     */
 }

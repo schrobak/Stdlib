@@ -19,9 +19,9 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace ZendTest\Crypt\Math\BigInteger;
+namespace ZendTest\Math\BigInteger;
 
-use Zend\Crypt\Math\BigInteger\Bcmath;
+use Zend\Math\BigInteger\Gmp;
 
 /**
  * @category   Zend
@@ -31,18 +31,18 @@ use Zend\Crypt\Math\BigInteger\Bcmath;
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Crypt
  */
-class BcmathTest extends \PHPUnit_Framework_TestCase
+class GmpTest extends \PHPUnit_Framework_TestCase
 {
 
     private $_math = null;
 
     public function setUp()
     {
-        if (!extension_loaded('bcmath')) {
-            $this->markTestSkipped('Skipped: Zend_Crypt_Math_BigInteger_BcmathTest due to ext/bcmath being unavailable');
+        if (!extension_loaded('gmp')) {
+            $this->markTestSkipped('Skipped: Zend_Crypt_Math_BigInteger_GmpTest due to ext/gmp being unavailable');
             return;
         }
-        $this->_math = new Bcmath;
+        $this->_math = new Gmp;
     }
 
     public function testAdd()
@@ -113,13 +113,4 @@ class BcmathTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($integer, $gmpInteger);
     }
 
-    public function testHexToDecimalConversion()
-    {
-        $hexadecimal = '5A46'; // One byte
-        $expected = '23110';
-
-        $decimal = $this->_math->hexToDecimal($hexadecimal);
-
-        $this->assertEquals($expected, $decimal);
-    }
 }
