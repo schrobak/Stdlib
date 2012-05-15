@@ -13,39 +13,33 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Captcha
- * @subpackage UnitTests
+ * @package    Zend_Stdlib
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace ZendTest\Captcha;
+namespace Zend\Stdlib;
 
 /**
  * @category   Zend
- * @package    Zend_Captcha
- * @subpackage UnitTests
+ * @package    Zend_Stdlib
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Captcha
  */
-abstract class CommonWordTest extends \PHPUnit_Framework_TestCase
+interface ArraySerializableInterface
 {
     /**
-     * Word adapter class name
-     *
-     * @var string
+     * Exchange internal values from provided array
+     * 
+     * @param  array $array 
+     * @return void
      */
-    protected $wordClass;
+    public function exchangeArray(array $array);
 
     /**
-     * @group ZF2-91
+     * Return an array representation of the object
+     * 
+     * @return array
      */
-    public function testLoadInvalidSessionClass()
-    {
-        $wordAdapter = new $this->wordClass;
-        $wordAdapter->setSessionClass('ZendTest\Captcha\InvalidClassName');
-        $this->setExpectedException('Zend\Captcha\Exception\InvalidArgumentException', 'not found');
-        $wordAdapter->getSession();
-    }
+    public function getArrayCopy();
 }

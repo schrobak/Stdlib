@@ -13,39 +13,35 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Captcha
- * @subpackage UnitTests
+ * @package    Zend_Form
+ * @subpackage UnitTest
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace ZendTest\Captcha;
+namespace ZendTest\Form\TestAsset;
+
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilterInterface;
 
 /**
  * @category   Zend
- * @package    Zend_Captcha
- * @subpackage UnitTests
+ * @package    Zend_Form
+ * @subpackage UnitTest
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Captcha
  */
-abstract class CommonWordTest extends \PHPUnit_Framework_TestCase
+class ValidatingModel extends Model implements InputFilterAwareInterface
 {
-    /**
-     * Word adapter class name
-     *
-     * @var string
-     */
-    protected $wordClass;
+    protected $inputFilter;
 
-    /**
-     * @group ZF2-91
-     */
-    public function testLoadInvalidSessionClass()
+    public function setInputFilter(InputFilterInterface $inputFilter)
     {
-        $wordAdapter = new $this->wordClass;
-        $wordAdapter->setSessionClass('ZendTest\Captcha\InvalidClassName');
-        $this->setExpectedException('Zend\Captcha\Exception\InvalidArgumentException', 'not found');
-        $wordAdapter->getSession();
+        $this->inputFilter = $inputFilter;
+    }
+
+    public function getInputFilter()
+    {
+        return $this->inputFilter;
     }
 }

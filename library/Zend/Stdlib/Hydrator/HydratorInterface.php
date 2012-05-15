@@ -13,39 +13,37 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Captcha
- * @subpackage UnitTests
+ * @package    Zend_Stdlib
+ * @subpackage Hydrator
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace ZendTest\Captcha;
+namespace Zend\Stdlib\Hydrator;
 
 /**
  * @category   Zend
- * @package    Zend_Captcha
- * @subpackage UnitTests
+ * @package    Zend_Stdlib
+ * @subpackage Hydrator
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Captcha
  */
-abstract class CommonWordTest extends \PHPUnit_Framework_TestCase
+interface HydratorInterface
 {
     /**
-     * Word adapter class name
-     *
-     * @var string
+     * Extract values from an object
+     * 
+     * @param  object $object 
+     * @return array
      */
-    protected $wordClass;
+    public function extract($object);
 
     /**
-     * @group ZF2-91
+     * Hydrate $object with the provided $data.
+     * 
+     * @param  array $data 
+     * @param  object $object 
+     * @return void
      */
-    public function testLoadInvalidSessionClass()
-    {
-        $wordAdapter = new $this->wordClass;
-        $wordAdapter->setSessionClass('ZendTest\Captcha\InvalidClassName');
-        $this->setExpectedException('Zend\Captcha\Exception\InvalidArgumentException', 'not found');
-        $wordAdapter->getSession();
-    }
+    public function hydrate(array $data, $object);
 }
