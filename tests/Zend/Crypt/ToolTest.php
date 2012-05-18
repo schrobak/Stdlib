@@ -13,49 +13,34 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_OAuth;
+ * @package    Zend_Crypt
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\OAuth\Signature;
-use Zend\Crypt\PublicKey\Rsa as RSAEncryption;
+namespace ZendTest\Crypt;
+
+use Zend\Crypt\Tool;
+
+/**
+ * Outside the Internal Function tests, tests do not distinguish between hash and mhash
+ * when available. All tests use Hashing algorithms both extensions implement.
+ */
 
 /**
  * @category   Zend
- * @package    Zend_OAuth
+ * @package    Zend_Crypt
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @group      Zend_Crypt
  */
-class Rsa extends AbstractSignature
+class ToolTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Sign a request
-     * 
-     * @param  array $params 
-     * @param  null|string $method 
-     * @param  null|string $url 
-     * @return string
-     */
-    public function sign(array $params, $method = null, $url = null) 
+    public function testCompare()
     {
-        $rsa = new RSAEncryption;
-        $rsa->setHashAlgorithm($this->_hashAlgorithm);
-        $sign = $rsa->sign(
-            $this->_getBaseSignatureString($params, $method, $url),
-            $this->_key,
-            RSAEncryption::BASE64
-        );
-        return $sign;
-    }
-
-    /**
-     * Assemble encryption key
-     * 
-     * @return string
-     */
-    protected function _assembleKey()
-    {
-        return $this->_consumerSecret;
+        $this->assertTrue(Tool::compareString('test', 'test'));
+        $this->assertFalse(Tool::compareString('test', 'Test'));
     }
 }

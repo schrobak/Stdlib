@@ -13,32 +13,50 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Crypt
+ * @package    Zend_Math
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace ZendTest\Crypt;
+namespace ZendTest\Math;
 
-use Zend\Crypt\Math;
+use Zend\Math\Math;
 
 /**
  * @category   Zend
- * @package    Zend_Crypt
+ * @package    Zend_Math
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Crypt
+ * @group      Zend_Math
  */
 class MathTest extends \PHPUnit_Framework_TestCase
 {
-
+    public function testRandBytes()
+    {
+        for ($length=1; $length<64; $length++) {
+            $rand = Math::randBytes($length);
+            $this->assertTrue(!empty($rand));
+            $this->assertEquals(strlen($rand), $length);
+        }
+    }
+       
     public function testRand()
     {
+        for ($i=0; $i<100; $i++) {
+            $min = mt_rand(1,10000);
+            $max = $min + mt_rand(1,10000);
+            $rand = Math::rand($min, $max);
+            $this->assertTrue(($rand >= $min) && ($rand <= $max));
+        }
+    }
+    
+    public function testRandBigInteger()
+    {
         try {
-            $math = new \Zend\Crypt\Math\BigInteger();
-        } catch (\Zend\Crypt\Math\BigInteger\Exception\InvalidArgumentException $e) {
+            $math = new \Zend\Math\BigInteger();
+        } catch (\Zend\Math\Exception\ExceptionInterface $e) {
             if (strpos($e->getMessage(), 'big integer precision math support not detected') !== false) {
                 $this->markTestSkipped($e->getMessage());
             } else {
