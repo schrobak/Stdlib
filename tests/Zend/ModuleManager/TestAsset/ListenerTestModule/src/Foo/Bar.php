@@ -13,18 +13,25 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Locale
+ * @package    Zend_ModuleManager
+ * @subpackage UnitTest
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\Locale\Exception;
+namespace Foo;
 
-/**
- * @category   Zend
- * @package    Zend_Locale
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */
-interface ExceptionInterface
-{}
+use ListenerTestModule\Module,
+    Zend\ModuleManager\ModuleManager;
+
+class Bar
+{
+    public $module;
+    public $moduleManager;
+
+    public function __construct(Module $module, ModuleManager $moduleManager)
+    {
+        $this->module        = $module;
+        $this->moduleManager = $moduleManager;
+    }
+}

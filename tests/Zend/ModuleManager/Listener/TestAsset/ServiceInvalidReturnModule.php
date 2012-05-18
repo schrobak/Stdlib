@@ -13,18 +13,27 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Locale
+ * @package    Zend_ModuleManager
+ * @subpackage UnitTest
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\Locale\Exception;
+namespace ZendTest\ModuleManager\Listener\TestAsset;
+
+use stdClass;
 
 /**
  * @category   Zend
- * @package    Zend_Locale
+ * @package    Zend_ModuleManager
+ * @subpackage UnitTest
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface ExceptionInterface
-{}
+class ServiceInvalidReturnModule
+{
+    public function getServiceConfiguration()
+    {
+        return new stdClass;
+    }
+}
