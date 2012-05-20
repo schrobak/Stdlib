@@ -13,23 +13,23 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Cloud
- * @subpackage DocumentService_Adapter
+ * @package    Zend_Amf
+ * @subpackage Parser
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\Cloud\DocumentService\Adapter\Exception;
+namespace Zend\Amf\Parser\Exception;
 
-use Zend\Cloud\DocumentService\Exception;
+use Zend\Amf\Exception\ExceptionInterface as Exception;
 
 /**
- * @package    Zend_Cloud
- * @subpackage DocumentService_Adapter
+ * @category   Zend
+ * @package    Zend_Amf
+ * @subpackage Parser
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class RuntimeException extends Exception\RuntimeException implements 
-    ExceptionInterface
+interface ExceptionInterface extends Exception
 {
 }
