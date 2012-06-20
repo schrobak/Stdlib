@@ -13,24 +13,22 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_PDF
- * @subpackage Zend_PDF_Exception
+ * @package    Zend_Code
+ * @subpackage UnitTest
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\Pdf;
+namespace ZendTest\Code\Annotation\TestAsset;
 
-/**
- * Exception interface for Zend\Pdf.
- *
- * @category   Zend
- * @package    Zend_PDF
- * @subpackage Zend_PDF_Exception
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */
-interface Exception
+use Zend\Code\Annotation\AnnotationInterface;
+
+class Foo implements AnnotationInterface
 {
-}
+    public $content;
 
+    public function initialize($content)
+    {
+        $this->content = $content;
+    }
+}
