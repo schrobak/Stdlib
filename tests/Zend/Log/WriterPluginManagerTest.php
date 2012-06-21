@@ -21,7 +21,7 @@
 
 namespace ZendTest\Log;
 
-use Zend\Log\WriterBroker;
+use Zend\Log\WriterPluginManager;
 
 /**
  * @category   Zend
@@ -31,21 +31,16 @@ use Zend\Log\WriterBroker;
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Log
  */
-class WriterBrokerTest extends \PHPUnit_Framework_TestCase
+class WriterPluginManagerTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->broker = new WriterBroker();
-    }
-
-    public function testUsesWriterLoaderAsDefaultClassLoader()
-    {
-        $this->assertInstanceOf('Zend\Log\WriterLoader', $this->broker->getClassLoader());
+        $this->plugins = new WriterPluginManager();
     }
 
     public function testRegisteringInvalidWriterRaisesException()
     {
         $this->setExpectedException('Zend\Log\Exception\InvalidArgumentException', 'must implement');
-        $this->broker->register('test', $this);
+        $this->plugins->setService('test', $this);
     }
 }
