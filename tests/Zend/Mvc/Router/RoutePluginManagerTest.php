@@ -13,23 +13,31 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Paginator
+ * @package    Zend_Mvc_Router
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace ZendTest\Paginator\TestAsset;
+namespace ZendTest\Mvc\Router;
 
-use Zend\Paginator\ScrollingStyleBroker as BaseScrollingStyleBroker;
+use Zend\Mvc\Router\RoutePluginManager,
+    PHPUnit_Framework_TestCase as TestCase;
 
 /**
  * @category   Zend
- * @package    Zend_Paginator
+ * @package    Zend_Mvc_Router
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @group      Zend_Router
  */
-class ScrollingStyleBroker extends BaseScrollingStyleBroker
+class RoutePluginManagerTest extends TestCase
 {
+    public function testLoadNonExistentRoute()
+    {
+        $routes = new RoutePluginManager();
+        $this->setExpectedException('Zend\ServiceManager\Exception\ServiceNotFoundException');
+        $routes->get('foo');
+    }
 }

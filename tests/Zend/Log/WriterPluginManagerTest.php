@@ -13,29 +13,34 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Markup
+ * @package    Zend_Log
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\Markup;
+namespace ZendTest\Log;
 
-use Zend\Loader\PluginClassLoader;
+use Zend\Log\WriterPluginManager;
 
 /**
- * Plugin Class Loader implementation for markup renderers.
- *
  * @category   Zend
- * @package    Zend_Markup
+ * @package    Zend_Log
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @group      Zend_Log
  */
-class RendererLoader extends PluginClassLoader
+class WriterPluginManagerTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var array Pre-aliased renderers 
-     */
-    protected $plugins = array(
-        'html'  => 'Zend\Markup\Renderer\Html',
-    );
+    public function setUp()
+    {
+        $this->plugins = new WriterPluginManager();
+    }
+
+    public function testRegisteringInvalidWriterRaisesException()
+    {
+        $this->setExpectedException('Zend\Log\Exception\InvalidArgumentException', 'must implement');
+        $this->plugins->setService('test', $this);
+    }
 }

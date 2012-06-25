@@ -13,30 +13,24 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Markup
+ * @package    Zend_Paginator
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id$
  */
 
-namespace Zend\Markup;
+namespace ZendTest\Paginator\TestAsset;
 
-use Zend\Loader\PluginClassLoader;
+use Zend\Paginator\AdapterPluginManager as BaseAdapterPluginManager;
 
 /**
- * Plugin Class Loader implementation for markup parsers.
- *
  * @category   Zend
- * @package    Zend_Markup
+ * @package    Zend_Paginator
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class ParserLoader extends PluginClassLoader
+class AdapterPluginManager extends BaseAdapterPluginManager
 {
-    /**
-     * @var array Pre-aliased parsers 
-     */
-    protected $plugins = array(
-        'bbcode'  => 'Zend\Markup\Parser\Bbcode',
-        'textile' => 'Zend\Markup\Parser\Textile',
-    );
 }
