@@ -13,44 +13,34 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Markup
+ * @package    Zend_Log
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\Markup;
+namespace ZendTest\Log;
 
-use Zend\Loader\PluginBroker;
+use Zend\Log\WriterPluginManager;
 
 /**
- * Broker for markup parser instances
- *
  * @category   Zend
- * @package    Zend_Markup
+ * @package    Zend_Log
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @group      Zend_Log
  */
-class ParserBroker extends PluginBroker
+class WriterPluginManagerTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var string Default plugin loading strategy
-     */
-    protected $defaultClassLoader = 'Zend\Markup\ParserLoader';
-
-    /**
-     * Determine if we have a valid parser
-     * 
-     * @param  mixed $plugin 
-     * @return true
-     * @throws Exception\InvalidArgumentException
-     */
-    protected function validatePlugin($plugin)
+    public function setUp()
     {
-        if (!$plugin instanceof Parser\ParserInterface) {
-            throw new Exception\InvalidArgumentException(
-                'Markup parsers must implement Zend\Markup\Parser\ParserInterface'
-            );
-        }
-        return true;
+        $this->plugins = new WriterPluginManager();
+    }
+
+    public function testRegisteringInvalidWriterRaisesException()
+    {
+        $this->setExpectedException('Zend\Log\Exception\InvalidArgumentException', 'must implement');
+        $this->plugins->setService('test', $this);
     }
 }

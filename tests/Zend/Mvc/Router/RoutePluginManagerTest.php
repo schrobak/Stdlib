@@ -13,29 +13,31 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Markup
+ * @package    Zend_Mvc_Router
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\Markup;
+namespace ZendTest\Mvc\Router;
 
-use Zend\Loader\PluginClassLoader;
+use Zend\Mvc\Router\RoutePluginManager,
+    PHPUnit_Framework_TestCase as TestCase;
 
 /**
- * Plugin Class Loader implementation for markup renderers.
- *
  * @category   Zend
- * @package    Zend_Markup
+ * @package    Zend_Mvc_Router
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @group      Zend_Router
  */
-class RendererLoader extends PluginClassLoader
+class RoutePluginManagerTest extends TestCase
 {
-    /**
-     * @var array Pre-aliased renderers 
-     */
-    protected $plugins = array(
-        'html'  => 'Zend\Markup\Renderer\Html',
-    );
+    public function testLoadNonExistentRoute()
+    {
+        $routes = new RoutePluginManager();
+        $this->setExpectedException('Zend\ServiceManager\Exception\ServiceNotFoundException');
+        $routes->get('foo');
+    }
 }

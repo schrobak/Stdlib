@@ -13,23 +13,39 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Paginator
- * @subpackage UnitTests
+ * @package    ZendTest_I18n
+ * @subpackage Translator
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace ZendTest\Paginator\TestAsset;
+namespace ZendTest\I18n\Translator\TestAsset;
 
-use Zend\Paginator\ScrollingStyleBroker as BaseScrollingStyleBroker;
+use Zend\I18n\Translator\Loader\LoaderInterface;
 
 /**
+ * Test loader.
+ *
  * @category   Zend
- * @package    Zend_Paginator
- * @subpackage UnitTests
+ * @package    ZendTest_I18n
+ * @subpackage Translator
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class ScrollingStyleBroker extends BaseScrollingStyleBroker
+class Loader implements LoaderInterface
 {
+    public $textDomain;
+
+    /**
+     * load(): defined by LoaderInterface.
+     *
+     * @see    LoaderInterface::load()
+     * @param  string $filename
+     * @param  string $locale
+     * @return TextDomain|null
+     */
+    public function load($filename, $locale)
+    {
+        return $this->textDomain;
+    }
 }
