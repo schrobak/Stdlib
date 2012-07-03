@@ -30,11 +30,8 @@ class BasicFieldset extends Fieldset
     {
         parent::__construct('basic_fieldset');
 
-        $field = new Element('field');
-        $field->setAttributes(array(
-            'type' => 'text',
-            'label' => 'Name'
-        ));
+        $field = new Element('field', array('label' => 'Name'));
+        $field->setAttribute('type', 'text');
         $this->add($field);
 
         $nestedFieldset = new NestedFieldset();
